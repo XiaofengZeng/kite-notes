@@ -2,10 +2,12 @@ module.exports = {
   title: "kite-notes",
   description: "some notes about development.",
   base: "/notes/",
+  nav: [{ text: "Home", link: "/" }],
+
   // 放在html的head标签中
   head: [
     // icon
-    // ["link", { rel: "icon", href: "/notes.jpeg" }],
+    ["link", { rel: "icon", href: "/icon/nest.png" }],
     // SEO
     [
       "meta",
