@@ -40,6 +40,7 @@ module.exports = {
       {
         title: "环境安装部署",
         collapsable: false,
+        sidebarDepth: 2,
         children: [
           ["env_deploy/dev_front_pnpm", "[开发-前端]pnpm"],
           ["env_deploy/soft_gis_geoscene", "[软件-GIS]GeoScene"],

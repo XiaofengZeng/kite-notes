@@ -1,6 +1,8 @@
 # pnpm
 
-## 1. npmp特点
+## 1. npmp简介
+
+### 1.1 pnpm特点
 
 - <mark>【无痛切换】</mark>与`npm`/`yarn`等主流包管理工具的使用类似，易于上手
 - <mark>【节省磁盘空间并提升安装速度】</mark>采用`统一的包管理目录`对机器所安装的所有包进行管理
@@ -15,6 +17,11 @@
 
 ![节省磁盘空间并提升安装速度](./img/pnpm_motivation_1.jpg)
 ![非扁平的 node_modules 目录](./img/pnpm_motivation_2.jpg)
+
+### 1.2 pnpm与npm/yarn的区别(优势)
+
+- 相比`npm2` ，`pnpm`不会进行同样依赖的多次复制（[详见](https://mp.weixin.qq.com/s/sRKiqFNs24NYPxO4P5jq6Q)）
+- 相比`yarn`以及`npm3+`，不会有幽灵依赖，也不会有没有被提升的依赖依然复制多份的问题（[详见](https://mp.weixin.qq.com/s/sRKiqFNs24NYPxO4P5jq6Q)）
 
 ## 2. 安装与配置
 

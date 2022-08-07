@@ -1,2 +1,13 @@
 # kite_notes
-some notes about development
+
+尽可能做到一周两个更新
+
+- 关于自己对技术追求的记录
+  - 环境部署
+  - 开发技巧
+    - 前端
+    - 后台
+    - GIS
+  - 数据库
+  - 操作系统
+    - Linux
