@@ -6,7 +6,7 @@ module.exports = {
 
   // 放在html的head标签中
   head: [
-    // icon
+    // icon：路径根目录为public
     ["link", { rel: "icon", href: "/icon/nest.png" }],
     // SEO
     [
@@ -18,6 +18,7 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    // logo：图片，路径根目录为public
     logo: "icon/nest.png",
     // 自定义仓库链接文字。默认从 `themeConfig.repo` 中自动推断为
     repo: "XiaofengZeng/kite-notes",
@@ -44,6 +45,15 @@ module.exports = {
         children: [
           ["env_deploy/dev_front_pnpm", "[开发-前端]pnpm"],
           ["env_deploy/soft_gis_geoscene", "[软件-GIS]GeoScene"],
+        ],
+      },
+      {
+        title: "操作系统",
+        collapsable: false,
+        sidebarDepth: 2,
+        children: [
+          ["os/linux", "Linux系统"],
+          ["os/windows", "Windows系统"],
         ],
       },
     ],
