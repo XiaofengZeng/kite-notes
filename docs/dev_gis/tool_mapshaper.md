@@ -15,7 +15,7 @@
 
 ### 联网使用
 
-进入mapshaper的[官网](https://mapshaper.org/)便是一个工具，直接上传文件按照自身需求处理地理空间数据即可
+进入mapshaper的[官网](https://mapshaper.org/)便是一个工具，直接上传文件后根据自身需求处理地理空间数据即可
 
 ### 本地使用
 
@@ -31,8 +31,54 @@
   mapshaper-gui
   ```
 
-  执行该指令后，浏览器指定打开与mapshaper官网一样，但功能稍微不一样的页面（**核心功能**不变）
+  执行该指令后，浏览器指定打开与mapshaper官网一样，但功能稍微不一样的页面（其**核心功能**不变）
+
+- 查看帮助文档
+
+  ```sh
+  mapshaper -h
+  ```
 
 ## 指令的使用
 
-`TODO...`
+### 文件操作
+
+### 获取数据集信息
+
+```sh
+```
+
+### 文件格式转换
+
+```sh
+# 文件格式转换导出
+```
+
+### 数据概化（简化）
+
+```sh
+# Douglas-Peucker
+# Visvalingam-Whyatt
+```
+
+### 空间操作
+
+```sh
+# 裁剪
+# 擦除
+# 融合
+# ...
+```
+
+### 编辑属性表
+
+```sh
+
+```
+
+## 文档参考
+
+[「GIS工具」GISer的小军刀-mapshaper](https://malagis.com/gis-useful-tool-about-mapshaper.html)
+
+[「GIS笔记」Mapshaper命令行通用格式说明](https://malagis.com/mapshaper-command-line-general-format-description.html)
+
