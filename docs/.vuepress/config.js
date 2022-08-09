@@ -48,6 +48,12 @@ module.exports = {
         ],
       },
       {
+        title: "[开发]-GIS",
+        collapsable: false,
+        sidebarDepth: 2,
+        children: [["dev_gis/tool_mapshaper", "[小工具]-mapshaper"]],
+      },
+      {
         title: "操作系统",
         collapsable: false,
         sidebarDepth: 2,
