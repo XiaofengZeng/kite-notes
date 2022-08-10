@@ -36,22 +36,46 @@
 - 查看帮助文档
 
   ```sh
+  # 所有指令的帮助列表
   mapshaper -h
+
+  # 具体指令的帮助文档（语法+例子）
+  mapshaper -h <command>
   ```
 
 ## 指令的使用
 
 ### 文件操作
 
+```sh
+# 文件导入
+
+# 文件导出（文件格式转换）
+# name: 文件名称
+# ext: 文件扩展名 
+#      shp/geojson/topojson -> 输出空间信息+属性信息
+#      dbf/csv              -> 输出属性信息
+mapshaper -o <name>.<ext>
+```
+
 ### 获取数据集信息
 
 ```sh
+# 获取图层信息
+# target: 必填 图层名称列表（多图层用逗号分隔）
+mapshaper -info <target>
+
+# 获取要素信息
+# expression: 必填，JS布尔表达式
+# target: 选填，图层名称列表（多图层用逗号分隔）
+mapshaper -inspect <expression> [<target>]
 ```
 
-### 文件格式转换
+### 坐标系转换
 
 ```sh
-# 文件格式转换导出
+# projDef: 坐标系定义，使用Proj.4定义或者坐标系别名
+mapshaper -proj <projDef>
 ```
 
 ### 数据概化（简化）
@@ -81,4 +105,3 @@
 [「GIS工具」GISer的小军刀-mapshaper](https://malagis.com/gis-useful-tool-about-mapshaper.html)
 
 [「GIS笔记」Mapshaper命令行通用格式说明](https://malagis.com/mapshaper-command-line-general-format-description.html)
-
