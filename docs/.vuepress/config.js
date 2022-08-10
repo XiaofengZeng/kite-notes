@@ -54,6 +54,12 @@ module.exports = {
         children: [["dev_gis/tool_mapshaper", "[小工具]-mapshaper"]],
       },
       {
+        title: "地理信息科学",
+        collapsable: false,
+        sidebarDepth: 2,
+        children: [["gis/data_poi", "[数据]-POI"]],
+      },
+      {
         title: "操作系统",
         collapsable: false,
         sidebarDepth: 2,
