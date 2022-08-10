@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /icon/kite.png
-heroText: 峰巢
+heroText: 鹫巢
 tagline: 首页
 actionText: 技术笔记 →
 actionLink: /env_deploy/dev_front_pnpm
