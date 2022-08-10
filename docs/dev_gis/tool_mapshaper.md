@@ -53,8 +53,9 @@
 # 文件导出（文件格式转换）
 # name: 文件名称
 # ext: 文件扩展名 
-#      shp/geojson/topojson -> 输出空间信息+属性信息
-#      dbf/csv              -> 输出属性信息
+#      shp/json/geojson/topojson -> 输出空间信息+属性信息
+#      dbf/csv                   -> 输出属性信息
+#      svg                       -> 矢量图片
 mapshaper -o <name>.<ext>
 ```
 
