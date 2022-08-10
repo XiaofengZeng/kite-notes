@@ -43,21 +43,24 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 2,
         children: [
-          ["env_deploy/dev_front_pnpm", "[开发-前端]pnpm"],
-          ["env_deploy/soft_gis_geoscene", "[软件-GIS]GeoScene"],
+          ["env_deploy/dev_front_pnpm", "「开发-前端」pnpm"],
+          ["env_deploy/soft_gis_geoscene", "「软件-GIS」GeoScene"],
         ],
       },
       {
-        title: "[开发]-GIS",
+        title: "「开发」GIS",
         collapsable: false,
         sidebarDepth: 2,
-        children: [["dev_gis/tool_mapshaper", "[小工具]-mapshaper"]],
+        children: [
+          ["dev_gis/tool_mapshaper", "「小工具」mapshaper"],
+          ["dev_gis/algo_simplify", "「算法」简化"],
+        ],
       },
       {
         title: "地理信息科学",
         collapsable: false,
         sidebarDepth: 2,
-        children: [["gis/data_poi", "[数据]-POI"]],
+        children: [["gis/data_poi", "「数据」POI"]],
       },
       {
         title: "操作系统",
