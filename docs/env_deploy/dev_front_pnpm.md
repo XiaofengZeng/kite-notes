@@ -18,10 +18,15 @@
 ![节省磁盘空间并提升安装速度](./img/pnpm_motivation_1.jpg)
 ![非扁平的 node_modules 目录](./img/pnpm_motivation_2.jpg)
 
-### 1.2 pnpm与npm/yarn的区别(优势)
+### 1.2 pnpm与npm/yarn的区别(优势)<sup>1,2</sup>
 
-- 相比`npm2` ，`pnpm`不会进行同样依赖的多次复制（[详见](https://mp.weixin.qq.com/s/sRKiqFNs24NYPxO4P5jq6Q)）
-- 相比`yarn`以及`npm3+`，不会有幽灵依赖，也不会有没有被提升的依赖依然复制多份的问题（[详见](https://mp.weixin.qq.com/s/sRKiqFNs24NYPxO4P5jq6Q)）
+- 相比`npm2` ，`pnpm`不会进行同样依赖的多次复制
+- 相比`yarn`以及`npm3+`，不会有幽灵依赖（幽灵依赖是由于依赖声明丢失造成的）和，也不会有依赖分身（没有被提升的依赖依然复制多份）\
+
+### 1.3 pnpm的弊端<sup>2</sup>
+
+- 无法在不支持软连接的环境中使用`pnpm`，比如`Electron`应用
+- 因为依赖安装在`统一的包管理目录`中的，调试依赖或使用`patch-package`给依赖打补丁不方便，可能会影响到其他项目
 
 ## 2. 安装与配置
 
@@ -145,3 +150,9 @@
   pnpm run <script>
   pnpm <script> # 简写(前提是脚本与pnpm内建指令不冲突)
   ```
+
+## 参考文档
+
+1. [pnpm 是凭什么对 npm 和 yarn 降维打击的](https://mp.weixin.qq.com/s/sRKiqFNs24NYPxO4P5jq6Q)
+
+2. [深入浅出 npm & yarn & pnpm 包管理机制](https://mp.weixin.qq.com/s/5YJYxvcqZIifQIsTR_I3fA)
