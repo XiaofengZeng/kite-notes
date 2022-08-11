@@ -42,10 +42,13 @@ module.exports = {
         title: "环境安装部署",
         collapsable: false,
         sidebarDepth: 2,
-        children: [
-          ["env_deploy/dev_front_pnpm", "「开发-前端」pnpm"],
-          ["env_deploy/soft_gis_geoscene", "「软件-GIS」GeoScene"],
-        ],
+        children: [["env_deploy/soft_gis_geoscene", "「软件-GIS」GeoScene"]],
+      },
+      {
+        title: "「开发」前端",
+        collapsable: false,
+        sidebarDepth: 2,
+        children: [["dev_frontend/tool_pnpm", "「构建工具」pnpm"]],
       },
       {
         title: "「开发」GIS",
@@ -53,7 +56,7 @@ module.exports = {
         sidebarDepth: 2,
         children: [
           ["dev_gis/tool_mapshaper", "「小工具」mapshaper"],
-          ["dev_gis/algo_simplify", "「算法」简化"],
+          ["dev_gis/algo_simplify", "「算法」抽稀"],
         ],
       },
       {
