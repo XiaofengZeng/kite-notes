@@ -15,8 +15,8 @@
 
 - <mark>【多栖环境】</mark>pnpm可以不需要对node的环境有太多依赖，因为自身可以设置使用node的具体版本
 
-![节省磁盘空间并提升安装速度](./img/pnpm_motivation_1.jpg)
-![非扁平的 node_modules 目录](./img/pnpm_motivation_2.jpg)
+![节省磁盘空间并提升安装速度](./img/pnpm_motivation_1.jpg "节省磁盘空间并提升安装速度")
+![非扁平的node_modules目录](./img/pnpm_motivation_2.jpg "非扁平的node_modules目录")
 
 ### 1.2 pnpm与npm/yarn的区别(优势)<sup>1,2</sup>
 
