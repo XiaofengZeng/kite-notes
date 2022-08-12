@@ -56,7 +56,7 @@ module.exports = {
         sidebarDepth: 2,
         children: [
           ["dev_gis/tool_mapshaper", "「小工具」mapshaper"],
-          ["dev_gis/algo_simplify", "「算法」抽稀"],
+          ["dev_gis/algo_simplify", "「算法」抽稀（概化）"],
         ],
       },
       {
@@ -66,12 +66,23 @@ module.exports = {
         children: [["gis/data_poi", "「数据」POI"]],
       },
       {
-        title: "操作系统",
+        title: "「系统」Linux",
         collapsable: false,
         sidebarDepth: 2,
         children: [
-          ["os/linux", "Linux系统"],
-          ["os/windows", "Windows系统"],
+          ["os_linux/cmd", "「Linux」常用指令"],
+          ["os_linux/sh", "「Linux」常用脚本"],
+          ["os_linux/operation", "「Linux」常用操作"],
+        ],
+      },
+      {
+        title: "「系统」Windows",
+        collapsable: false,
+        sidebarDepth: 2,
+        children: [
+          ["os_windows/cmd", "「Windows」常用指令"],
+          ["os_windows/bat", "「Windows」常用脚本"],
+          ["os_windows/operation", "「Windows」常用操作"],
         ],
       },
     ],
