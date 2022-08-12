@@ -42,13 +42,16 @@ module.exports = {
         title: "环境安装部署",
         collapsable: false,
         sidebarDepth: 2,
-        children: [["env_deploy/soft_gis_geoscene", "「软件-GIS」GeoScene"]],
+        children: [
+          ["env_deploy/soft_gis_geoscene", "「软件-GIS」GeoScene"],
+          ["env_deploy/tool_build_jenkins", "「工具-构建」Jenkins"],
+        ],
       },
       {
         title: "「开发」前端",
         collapsable: false,
         sidebarDepth: 2,
-        children: [["dev_frontend/tool_pnpm", "「构建工具」pnpm"]],
+        children: [["dev_frontend/tool_pnpm", "「工具-依赖管理」pnpm"]],
       },
       {
         title: "「开发」GIS",
