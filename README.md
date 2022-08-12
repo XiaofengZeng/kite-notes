@@ -1,6 +1,8 @@
 # kite_notes
 
-尽可能做到一周两个更新
+## 目标
+
+尽可能做到一周两篇文章更新
 
 ## 做什么？
 
@@ -24,18 +26,18 @@
 
 - 新建`markdown`文件（笔记的载体）
 
-  在docs目录下的指定模块下新建.md拓展名的文件
+  在docs目录下的指定模块下新建`.md`拓展名的文件
 
 - 引入笔记
 
-  在`.vuepress`文件夹中，在`themeConfig.sidebar`配置项中配置笔迹的路由
+  在`.vuepress`文件夹中，在`themeConfig.sidebar`配置项中配置笔记的路由
   
   ```javascript
   themeConfig: {
     sidebar: {
       title: "xxx", // 笔记模块标题
       collapsable: false,  // 是否展开
-      sidebarDepth: 2, // 节点展示的深度（即支持显示哪个等级的标题 h1 h2...）
+      sidebarDepth: 2, // 节点展示的深度（即支持显示哪个等级的标题 h1 h2...），默认是展开h1
       children: [
         // 细化笔记路由和标题
         ["<module1>/<notes1>", "<title1>"],
@@ -49,7 +51,7 @@
 
 - 安装
 
-  推荐使用`pnpm`工具，但`npm`/`yarn`也没有问题
+  推荐使用`pnpm`工具进行安装，但使用`npm`/`yarn`也没有问题
 
   ```sh
   pnpm install
