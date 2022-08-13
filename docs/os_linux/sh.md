@@ -159,3 +159,25 @@ echo "maven install end"
 echo "test maven"
 mvn -v
 ```
+
+## 检查端口号并杀死对应进程
+
+```sh
+  check_and_kill() {
+    echo "check:$1"
+    netstat -tlpn | grep "\b$1\b"
+    
+    if [ $? == 0 ]; then
+      PID=$(netstat -nlp | grep ":$1" | awk '{print $7}' | awk -F '[ / ]' '{print $1}')
+      kill -9 ${PID}
+      echo "kill:$1"
+    else
+      echo " $1 not exit"
+    fi
+  }
+  
+  # 检查并杀死指定端口号进程，可批量
+  check_and_kill 8092
+  check_and_kill 8093
+  check_and_kill 8094
+```
