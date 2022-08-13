@@ -33,7 +33,7 @@
   nohup java -jar $WAR_PATH/jenkins.war --httpPort=8020 > $WAR_PATH/jenkins.log 2>&1 &
   ```
   
-  - [停止脚本]()`jenkins-stop.sh`  `TODO: ../os_linux/sh.md#杀死端口-进程`]
+  - [停止脚本](./../os_linux/sh.md#检查端口号并杀死对应进程)`jenkins-stop.sh`
 - 执行启动脚本`jenkins-start.sh`
 
 ### 部署
@@ -111,7 +111,7 @@
   - `clean package -DskipTests`：即先清理原有的再打包，同时不执行测试用例
 
 - 注意构建代码前后处理
-  - 构建代码前处理：主要是判断该JAR包的端口是否存在，存在则杀死
+  - 构建代码前处理：主要是判断该JAR包的端口是否存在，存在则杀死->[Shell脚本](./../os_linux/sh.md#检查端口号并杀死对应进程)
   - 构建代码后处理：移动JAR包到指定目录，重启启动
 
     ```sh
