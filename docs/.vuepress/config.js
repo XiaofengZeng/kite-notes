@@ -67,7 +67,7 @@ module.exports = {
         title: "地理信息科学",
         collapsable: false,
         sidebarDepth: 2,
-        children: [["gis/data_poi", "「数据」POI"]],
+        children: [["gis/data_poi_aoi_loi", "「数据」POI/AOI/LOI"]],
       },
       {
         title: "「系统」Linux",

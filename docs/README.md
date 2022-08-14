@@ -4,7 +4,7 @@ heroImage: /icon/kite.png
 heroText: 鹫巢
 tagline: 首页
 actionText: 技术笔记 →
-actionLink: /gis/data_poi
+actionLink: /gis/data_poi_aoi_loi
 features:
 - title: 简洁至上
   details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
