@@ -1,18 +1,24 @@
 # Git
 
-`TODO-简介`
+> Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. —— Git是一个免费的开源分布式版本控制系统，可以快速高效地处理从小到大的所有项目。
+
+`Git`是[Linus Torvalds](https://baike.baidu.com/item/林纳斯·本纳第克特·托瓦兹/1034429)为了帮助管理Linux内核开发而开发的一个开放源码的版本控制软件
 
 ## Git的特点优势
 
-`TODO`
+1. 分布式。
 
-## Git与Subversion的联系和区别
+## Git与SVN（Subversion）的联系和区别
 
-`TODO`
+1. `Git`是分布式的版本控制系统，而`SVN`不是：**最核心的区别**。
+2. `Git`把内容按元数据方式存储，而`SVN`是按文件：所有的资源控制系统都是把文件的元信息隐藏在一个类似 .svn、.cvs 等的文件夹里。
+3. `Git`分支和`SVN`的分支不同：分支在SVN中一点都不特别，其实它就是版本库中的另外一个目录。
+4. `Git`没有一个全局的版本号，而`SVN`有：目前为止这是跟 SVN 相比 Git 缺少的最大的一个特征。
+5. `Git`的内容完整性要优于`SVN`：Git的内容存储使用的是SHA-1哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。
 
 ## 安装配置
 
-`TODO`
+前往[Git](https://git-scm.com/)官网下载安装包，默认安装即可
 
 ### 配置（与Github关联）
 
