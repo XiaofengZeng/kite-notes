@@ -23,8 +23,30 @@
 ### 配置（与Github关联）
 
 - 修改本地配置config
-- 生成rsa文件，以及ssh
+- 打开`Git Bash`，生成rsa文件，以及ssh
+
+```sh
+# 生成新的ssh
+# <email>: 电子邮箱
+ssh-keygen -t rsa -b 4096 -C "<email>"
+# 按回车三次
+# 查看生成的文件，并复制至Github上
+cat ~/.ssh/id_rsa.pub
+```
+
 - 在Github上创建ssh key
+  - 找到并打开`Settings`，找到`SSH adn GPG keys`项(https://github.com/settings/keys)
+  - 点击`New SSH key`，将复制的内容粘贴至`Key`文本框，并设置好`Title`
+  - 保存，即`Add SSH key`
+
+- 检查是否能够通过SSH与GitHub通信
+  - 如果出现`Hi xxx! You've successfully authenticated, but GitHub does not provide shell access.`，说明配置成功；
+  - 如果出现`Permission denied (publickey).`，说明配置失败，需要重新操作。
+
+  ```sh
+  ssh -T git@github.com
+  # 若有提示则输入yes
+  ```
 
 ## 常用命令
 
