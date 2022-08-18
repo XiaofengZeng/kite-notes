@@ -61,7 +61,7 @@ module.exports = {
         children: [
           ["dev_gis/tool_mapshaper", "「小工具」mapshaper"],
           ["dev_gis/algo_simplify", "「算法」抽稀（概化）"],
-          ["dev_gis/esri_arcgis_server", "「Esri」ArcGIS Server"],
+          ["dev_gis/esri_arcgis_server", "「ESRI」ArcGIS Server"],
         ],
       },
       {

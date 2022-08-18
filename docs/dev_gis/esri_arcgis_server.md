@@ -1,4 +1,4 @@
-# 「Esri」ArcGIS Server
+# 「ESRI」ArcGIS Server
 
 ## Export Map
 
