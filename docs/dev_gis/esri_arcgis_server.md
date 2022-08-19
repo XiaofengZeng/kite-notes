@@ -11,28 +11,24 @@
 
 - 请求路由：`/export`
 - 请求方式：`GET`/`POST`
-- 请求参数
-  | 参数<br>(:star:表示常用) | 说明                                                                                                                                    | 示例                                                                                                                                                   |
-  | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-  | :star:bbox               | 边界范围（坐标范围）                                                                                                                    | `<xmin>, <ymin>, <xmax>, <ymax>`                                                                                                                       |
-  | :star:bboxSR             | 边界范围的空间参考，支持WKT代号ID或具体空间参考定义文本，不定义则默认使用地图服务的空间参考                                             | `EPSG:4490`/`{"wkt":"[ESRI_WKT]"}`                                                                                                                     |
-  | :star:layers             | 需要导出的图层索引<br>**show**:展示的图层索引<br>**hide**：隐藏的图层索引<br>**include**：包括的图层索引<br>**exclude**：排除的图层索引 | `<show>/<hide>/<include>/<exclude>:layerId1,layerId2`                                                                                                  |
-  | layerDef                 | 图层过滤定义                                                                                                                            | `<layerId1>:<Field_Expression1>;<layerId2>:<Field_Expression2>`/<br>`{ "<layerId1>" : "<Field_Expression1>" , "<Field_Expression2>" : "<layerDef2>" }` |
-  | :star:size               | 导出地图的像素大小，默认为`400,400`                                                                                                     | `<width>, <height>`                                                                                                                                    |
-  | :star:imgSR              | 导出图片的空间参考，同`bboxSR`                                                                                                          | 参考`bboxSR`示例                                                                                                                                       |
-  | :star:format             | 导出图片的格式，默认为`png`                                                                                                             | `png/png8/png24/jpg/pdf/bmp/gif/svg/svgz/emf/ps/png32`                                                                                                 |
-  | :star:transparent        | 背景是否透明，默认为`false`                                                                                                             |                                                                                                                                                        |
-  | dpi                      | 导出图片的分辨率，默认为`96`                                                                                                            | `dpi=200`                                                                                                                                              |
-  | time                     | 导出的地图图像的时间瞬间或时间范围                                                                                                      | `time=<timeInstant>`/<br>`time=<startTime>, <endTime>`                                                                                                 |
-  | layerTimeOptions         | 指定图层的时间定义                                                                                                                      | 详见：[`[layerTimeOptions]`](https://developers.arcgis.com/rest/services-reference/enterprise/export-map.htm)                                          |
-  | dynamicLayers            | 动态图层定义                                                                                                                            | 详见：[`[dynamicLayers]`](https://developers.arcgis.com/rest/services-reference/enterprise/export-map.htm)                                             |
-  | gdbVersion               | GDB版本                                                                                                                                 | `gdbVersion=sde.USER1`                                                                                                                                 |
-  | mapScale                 | 地图的比例尺                                                                                                                            | `mapScale=5000000, mapScale=5E6`                                                                                                                       |
-  | f                        | 请求返回的格式，默认是`html`                                                                                                            | `html/json/pjson/image/kmz`                                                                                                                            |
-
-说明：
-
-- `[ESRI_WKT]`: 具体空间参考定义文本（ESRI版本），如[国家2000大地坐标系（4490）](https://epsg.io/4490)
+- 请求参数（详见[API文档](https://developers.arcgis.com/rest/services-reference/enterprise/export-map.htm)）
+  | 参数<br>(:star:表示常用) | 说明                                                                                                                                    |
+  | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+  | :star:bbox               | 边界范围（坐标范围）                                                                                                                    |
+  | :star:bboxSR             | 边界范围的空间参考，支持WKT代号ID或具体空间参考定义文本，不定义则默认使用地图服务的空间参考                                             |
+  | :star:layers             | 需要导出的图层索引<br>**show**:展示的图层索引<br>**hide**：隐藏的图层索引<br>**include**：包括的图层索引<br>**exclude**：排除的图层索引 |
+  | layerDef                 | 图层过滤定义                                                                                                                            |
+  | :star:size               | 导出地图的像素大小，默认为`400,400`                                                                                                     |
+  | :star:imgSR              | 导出图片的空间参考，同`bboxSR`                                                                                                          |
+  | :star:format             | 导出图片的格式，默认为`png`                                                                                                             |
+  | :star:transparent        | 背景是否透明，默认为`false`                                                                                                             |
+  | dpi                      | 导出图片的分辨率，默认为`96`                                                                                                            |
+  | time                     | 导出的地图图像的时间瞬间或时间范围                                                                                                      |
+  | layerTimeOptions         | 指定图层的时间定义                                                                                                                      |
+  | dynamicLayers            | 动态图层定义                                                                                                                            |
+  | gdbVersion               | 指定查询的地理数据库的版本，当不指定时，则默认使用发布地图服务时使用的版本                                                              |
+  | mapScale                 | 地图的比例尺                                                                                                                            |
+  | f                        | 请求返回的格式，默认是`html`                                                                                                            |
 
 ## Query
 
@@ -46,29 +42,29 @@
 
 - 请求路由：`/query`
 - 请求方式：`GET`/`POST`
-- 请求参数
-  | 参数<br>(:star:表示常用)   | 说明                   | 示例         |
-  | -------------------------- | ---------------------- | ------------ |
-  | where                      | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | text                       | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | objectIds                  | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | time                       | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | geometry                   | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | geometryType               | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | inSR                       | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | spatialRel                 | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | relationParam              | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | outFields                  | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | returnGeometry             | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | maxAllowableOffset         | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | geometryPrecision          | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | outSR                      | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | returnIdsOnly              | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | returnCountOnly            | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | orderByFields              | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | groupByFieldsForStatistics | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | outStatistics              | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | returnZ                    | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | returnM                    | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | gdbVersion                 | 属性查询SQL的where子句 | `ITEMID='1'` |
-  | returnDistinctValues       | 属性查询SQL的where子句 | `ITEMID='1'` |
+- 请求参数（详见[API文档](https://developers.arcgis.com/rest/services-reference/enterprise/query-map-service-layer-.htm)）
+  | 参数<br>(:star:表示常用)   | 说明                                                                                                                                                                                                      |
+  | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | :star:where                | 属性查询SQL的where子句                                                                                                                                                                                    |
+  | text                       | 对`displayField`的值查询（支持模糊查询）。<br>形成的查询Where子句：`<displayField> like '<text>'`<br>当指定where参数后，该参数会被忽略                                                                    |
+  | objectIds                  | 查询指定ObjectID的属性                                                                                                                                                                                    |
+  | time                       | 限制查询的时间瞬间或时间范围，常用于有时间尺度的地理数据（时空数据）                                                                                                                                      |
+  | :star:geometry             | 空间过滤-几何图形                                                                                                                                                                                         |
+  | :star:geometryType         | 空间过滤-几何图形类<br>**esriGeometryPoint**：点<br>**esriGeometryMultipoint**：多点<br>**esriGeometryPolyline**：折线<br>**esriGeometryPolygon**：多边形<br>**esriGeometryEnvelope**：外包矩形（默认值） |
+  | :star:inSR                 | 空间过滤-几何图像-空间参考，支持WKT代号ID或具体空间参考定义文本，不定义则默认使用地图服务的空间参考                                                                                                       |
+  | :star:spatialRel           | 空间过滤-对输入的geometry的空间关系查询                                                                                                                                                                   |
+  | relationParam              | 属性查询SQL的where子句                                                                                                                                                                                    |
+  | :star:outFields            | 输出的字段                                                                                                                                                                                                |
+  | returnGeometry             | 是否返回几何图形，默认为`true`                                                                                                                                                                            |
+  | maxAllowableOffset         | 最大允许误差范围，根据单位由`inSR`确定，若没有`inSR`，则使用该地图的空间参考                                                                                                                              |
+  | geometryPrecision          | 返回几何图形的精度，具体指的是坐标点的小数点位数（只支持XY坐标，M和Z值不支持）                                                                                                                            |
+  | :star:outSR                | 输出的几何图形的空间参考定义，支持WKT代号ID或具体空间参考定义文本，不定义则默认使用地图服务的空间参考                                                                                                     |
+  | returnIdsOnly              | 是否值只返回ObjectId数组，不返回要素集，默认为`false`                                                                                                                                                     |
+  | returnCountOnly            | 是否只返回数量（通过count函数计算查询结果要素集中要素的数量），默认为`false`                                                                                                                              |
+  | orderByFields              | 根据一个或多个字段进行排序，需要指定排序方式，否则默认采用升序（ASC）<br>需要地图服务支持高级查询（**supportsAdvancedQueries**）                                                                          |
+  | groupByFieldsForStatistics | 一个或多个用于分组统计的字段                                                                                                                                                                              |
+  | outStatistics              | 基于（字段）对象字面量数组配置进行分组统计<br>需要地图服务支持统计查询（**suppportsStatistics**）                                                                                                         |
+  | returnZ                    | 是否返回Z值（高程值），默认为`false`                                                                                                                                                                      |
+  | returnM                    | 是否返回M值（测量值），默认为`false`                                                                                                                                                                      |
+  | gdbVersion                 | 指定查询的地理数据库的版本，当不指定时，则默认使用发布地图服务时使用的版本                                                                                                                                |
+  | returnDistinctValues       | 是否基于outField参数返回指定的字段的唯一值（去重），默认为`false`                                                                                                                                         |
