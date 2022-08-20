@@ -23,6 +23,14 @@
 ### 配置（与Github关联）
 
 - 修改本地配置config
+
+  ```sh
+  # 设置全局用户名称
+  git config --global user.name <username>
+  # 设置全局用户邮箱
+  git config --global user.email <email>
+  ```
+
 - 打开`Git Bash`，生成rsa文件，以及ssh
 
 ```sh
@@ -53,8 +61,31 @@ cat ~/.ssh/id_rsa.pub
 ### 代码管理
 
 - 拉取
+  
+```sh
+# 拉去远程代码到本地
+git pull
+```
+
 - 提交
+
+```sh
+# 查看状态
+git status
+# 添加所有改动文件到暂存区
+git add .
+# 添加指定的改动文件到暂存区
+git add <file>
+# 提交暂存区代码至当前分支，需要填写改动信息
+git commit -m "<message>"
+```
+
 - 推送
+
+```sh
+# 提交代码至代码库
+git push
+```
 
 ### 分支管理
 
