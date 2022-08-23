@@ -54,7 +54,7 @@ module.exports = {
         sidebarDepth: 2,
         children: [
           ["dev_frontend/tool_pnpm", "「工具-依赖管理」pnpm"],
-          ["dev_frontend/js_throttle_bounce_polling", "「JavaScript」节流&防抖&轮询"],
+          ["dev_frontend/js_throttle_debounce", "「JavaScript」节流&防抖"],
         ],
       },
       {
