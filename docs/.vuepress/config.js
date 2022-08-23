@@ -52,7 +52,10 @@ module.exports = {
         title: "「开发」前端",
         collapsable: false,
         sidebarDepth: 2,
-        children: [["dev_frontend/tool_pnpm", "「工具-依赖管理」pnpm"]],
+        children: [
+          ["dev_frontend/tool_pnpm", "「工具-依赖管理」pnpm"],
+          ["dev_frontend/js_throttle_debounce", "「JavaScript」节流&防抖"],
+        ],
       },
       {
         title: "「开发」GIS",
