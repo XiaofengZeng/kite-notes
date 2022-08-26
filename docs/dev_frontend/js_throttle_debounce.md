@@ -135,7 +135,7 @@ function debounceImmediate(fn, delay, immediate) {
 }
 ```
 
-### 两者的联系与区别
+## 两者的联系与区别
 
 联系：
 
