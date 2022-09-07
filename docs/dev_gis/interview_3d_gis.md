@@ -23,7 +23,7 @@ WebGIS中，客户端展示地图专题的主要方式是**动态展示地图**�
 3. Cesium提供的ArcGIS用数据源类`ArcGisMapServerImageryProvider`（加载WMTS服务）
 4. 和`ArcGISTiledElevationTerrainProvider`（加载地形服务）
 
-最终通过`ImageryLayerCollection`收集所有`***ImageryProvider`，并设置到`Viewer`的`imageryLayers`属性中（其实也是`Viewer`的`scene`属性的`global`属性的`imageryLayers`属性）。
+最终，对于一般的地图服务（如WMS服务、WMTS服务），可以通过`ImageryLayerCollection`收集所有`***ImageryProvider`，并设置到`Viewer`的`imageryLayers`属性中（其实也是`Viewer`的`scene`属性的`global`属性的`imageryLayers`属性）。对于地形服务，则通过将`ArcGISTiledElevationTerrainProvider`设置到`Viewer`的`terrainProvider`属性中即可
 
 ## Cesium计算两点距离
 
