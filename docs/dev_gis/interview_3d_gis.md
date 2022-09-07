@@ -14,6 +14,17 @@ WebGIS中，客户端展示地图专题的主要方式是**动态展示地图**�
 
 ## Cesium如何加载ArcGIS地图服务
 
+和`OpenLayers`的图层加载类似，需要一个图层实例（`ImageryProvider`）及其内部的数据源（`Cesium.***ImageryProvider`）
+
+对于ArcGIS地图服务来说，主要是：
+
+1. 通用`WebMapServiceImageryProvider`（加载WMS服务，除ArcGIS之外也支持其他厂商的地图服务加载）
+2. 通用`WebMapTileServiceImageryProvider`（加载WMTS服务，支持KVP和RESTful格式）
+3. Cesium提供的ArcGIS用数据源类`ArcGisMapServerImageryProvider`（加载WMTS服务）
+4. 和`ArcGISTiledElevationTerrainProvider`（加载地形服务）
+
+最终通过`ImageryLayerCollection`收集所有`***ImageryProvider`，并设置到`Viewer`的`imageryLayers`属性中（其实也是`Viewer`的`scene`属性的`global`属性的`imageryLayers`属性）。
+
 ## Cesium计算两点距离
 
 ## Cesium与OpenLayer计算两点距离的区别（结果是否一致）
