@@ -62,9 +62,19 @@ WebGIS中，客户端展示地图专题的主要方式是**动态展示地图**�
 
 ## Cesium与OpenLayer计算两点距离的区别（结果是否一致）
 
-## 如何理解Cesium中的property
+不完全一致。
 
-## Cesium如何实现漫游
+`OpenLayers`提供了两种计算长度的方式：
+
+1. 基于投影平面->`ol/geom/flat/length.lineStringLength`，是通过平面的方式计算（两点距离公式）
+2. 基于椭球曲面->`ol/sphere.getDistance`/`ol/sphere.getLength`，通过两点/多点的地理坐标计算曲面距离
+
+因此，在相同的椭球体下，同一个坐标点，使用相同的计算方式（基于投影平面/椭球曲面），两个框架计算两点距离是可以相等或近似相等；
+
+## 如何理解Cesium中的position属性？如何实现漫游？
+
+漫游，即在连续的时间段内，对指定的实体等物体进进行位置变换
+`position`基本是`Entity`/`Primitive`模块中的属性
 
 ## Cesium坐标系（类型）
 
