@@ -27,6 +27,22 @@ WebGIS中，客户端展示地图专题的主要方式是**动态展示地图**�
 
 ## Cesium计算两点距离
 
+1. 直线距离
+  **两点坐标点向量做差求模长。**
+
+  平面二维使用`Cartesian2`，空间三维使用`Cartesian3`，他们都有`distance()`方法能够计算两点之间的距离。
+  但是他们两个类也都提供了`distanceSquared()`方法，比起`distance()`更加的高效（原因是关于**资源开销问题**：CPU擅长处理浮点数，但不适合平方根计算，因此单纯计算距离的时候会有更大的资源消耗，如果不需要精确的距离计算，使用距离的平方根也能达到相同的效果并且更加的高效）
+2. 垂直距离（两点之间的高程差）
+  **两个坐标点之间的高程之差。**
+  
+  如果没有高程未知，则通过计算出其高程，再进行求差。具体实现这是通过`Cesium.sampleTerrainMostDetailed(terrainProvider, positions)`方法得到带高程数据的坐标点
+3. 水平距离（两点之间的的水平距离差）
+4. 地形贴地距离（与地形相关）
+5. 测地线（椭球体上的距离）
+  `Cesium`中存在一个测地线类`EllipsoidGeodesic`，实例化并通过`setEndPoints`设置起点和终点，通过`surfaceDistance`便可以获取到两点之间的地面距离
+
+- 参考文档：[Cesium测量距离](https://www.jianshu.com/p/a8d4123c03ef)
+
 ## Cesium与OpenLayer计算两点距离的区别（结果是否一致）
 
 ## 如何理解Cesium中的property
