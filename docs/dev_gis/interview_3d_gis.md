@@ -119,7 +119,22 @@ WebGIS中，客户端展示地图专题的主要方式是**动态展示地图**�
 
 ## Cesium怎么绘制点（Entity）
 
-## Cesium怎么加载一个模型（Primitive）
+在`Cesium`中，有两种表达几何图形的方式，并且都能够实现图形的位置以及材质的设置：
+
+- Entity
+
+  `Entity`实例是集成了多种形状的**高层次对象**（底层是通过`Primitive`的方式实现的），一个实例中可以包含点、线、面、体、模型、标签等等。这些形状都是需要`***Graphics`类对应实现。
+
+- Primitive
+
+  `Primitive`是在**场景**中显示的几何体，每个`Primitive`实例中可以有一个或多个`GeometryInstances`几何体实例组成。`Geometry`与`Graphics`类型类似，但比较不同的是，`Geometry`没有点这个类~~`PointGeometry`~~，而是直接实例化`PointPrimitive`。
+
+具体到添加点：
+
+1. 创建带`PointGraphics`点图形的`Entities`实例，添加至视图`Viewer.entities`中即可
+2. 创建`PointPrimitive`实例，添加至`Scene.primitives`中即可
+
+## Cesium怎么加载一个模型（model）
 
 ## Cesium的Camera（俯仰角）
 
