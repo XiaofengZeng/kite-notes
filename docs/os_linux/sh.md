@@ -160,6 +160,59 @@ echo "test maven"
 mvn -v
 ```
 
+## Tomcat环境-安装+配置
+
+### 前置条件
+
+1. [JDK环境](#jdk环境-安装-配置)。
+2. 准备安装包。如`apache-tomcat-9.0.68.tar.gz`
+
+### 脚本
+
+主要内容：
+
+1. 解压tomcat压缩包到指定目录
+2. 配置Tomcat自启环境变量
+3. 开放防火墙端口设置（TODO）
+4. 启动Tomcat
+
+```sh
+# 安装包文件（具体到文件名）
+INSTALL_PKG=/opt/install/apache-tomcat-9.0.68.tar.gz
+# Tomcat版本号
+TOMCAT_VER=apache-tomcat-9.0.68
+# JAVA环境
+JAVA_HOME=/opt/env/java/jdk1.8.0_351/
+# 安装目录
+INSTALL_PATH=/opt/env/tomcat
+
+echo "install tomcat..."
+# 解压
+echo "tar ing..."
+mkdir -p $INSTALL_PATH
+tar -zxf $INSTALL_PKG -C $INSTALL_PATH
+echo "tar end"
+
+# 配置自启环境变量
+echo "edit auto-started config"
+
+cat >> /etc/rc.d/rc.local << EOF
+export JAVA_HOME=$JAVA_HOME
+$INSTALL_PATH/$TOMCAT_VER/bin/startup.sh start
+EOF
+
+chmod +x /etc/rc.d/rc.local
+
+echo "auto-started config done, please reboot machine right now to take effect!!!"
+
+# 防火墙设置
+# TODO...
+
+# 启动TOMCAT
+$INSTALL_PATH/$TOMCAT_VER/bin/startup.sh start
+
+```
+
 ## 检查端口号并杀死对应进程
 
 ```sh
