@@ -79,6 +79,7 @@ docker run -d -p 10240:8080 -p 10241:50000 -v /opt/env/docker/jenkins_home:/var/
   - **NodeJS Plugin**
   - **Subversion Plug-in**
   - **Maven Integration plugin**
+  - **Publish Over SSH**
 
 #### 全局配置（配置构建环境）
 
@@ -193,7 +194,28 @@ docker run -d -p 10240:8080 -p 10241:50000 -v /opt/env/docker/jenkins_home:/var/
     fi
     ```
 
+### 构建后处理（可选）<sup>3</sup>
+
+构建后处理比较常用的操作是文件传输+文件路径的改变+程序启动，需要用到先前安装的插件**Publish Over SSH**
+
+#### 配置远程连接
+
+前往【系统配置】，找到【Publish over SSH】配置项的【SSH Servers】小项
+
+- 配置连接信息，保存即可
+
+  ![配置连接信息](./img/tool_build_jenkins/system-config-1.png "配置连接信息")
+
+- 在构建项目中配置【构建后操作】操作
+  - Source files：需要传输的文件/文件夹
+  - Remove prefix：需要移除的目录前缀，基于Source files路径
+  - Remote directory：远程的目录（默认为远程用户的目录，root -> /root）
+  - Exec command：需要执行的操作
+
+  ![构建后操作](./img/tool_build_jenkins/post-proccess-1.png "构建后操作")
+
 ## 参考文档
 
 1. [Jenkins中文文档-W3C School](https://www.w3cschool.cn/jenkins/)
 2. [Docker安装Jenkins详细教程](https://blog.csdn.net/qq359605040/article/details/117692609)
+3. [基于Docker安装Jenkins，并配置使用Jenkins打包Node前后端服务部署到远程服务器](https://juejin.cn/post/7067790095767568397#heading-16)
