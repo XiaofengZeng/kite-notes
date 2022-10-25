@@ -2,15 +2,17 @@
 
 <u>Jenkins是一个独立的开源软件项目，是基于Java开发的一种持续集成工具，用于监控持续重复的工作，旨在提供一个开放易用的软件平台，使软件的持续集成变成可能。前身是Hudson是一个可扩展的持续集成引擎。可用于自动化各种任务，如构建，测试和部署软件。Jenkins可以通过本机系统包Docker安装，甚至可以通过安装Java Runtime Environment的任何机器独立运行。</u><sup>1</sup>
 
-## 安装+部署（Liunx）
+## 安装+部署
 
-### 环境准备
+<!-- ### 环境准备
 
 - [前提条件-JDK安装+配置](../os_linux/sh.md#jdk环境-安装-配置)
 - [前端-Node安装+配置](../os_linux/sh.md#node环境-安装-配置)
-- [后端-Maven安装+配置](../os_linux/sh.md#maven环境-安装-配置)
+- [后端-Maven安装+配置](../os_linux/sh.md#maven环境-安装-配置) -->
 
 ### 安装
+
+#### 1. war包安装（Liunx）
 
 - 准备Jenkins安装包`jenkins.war`
 - 准备Jenkins启动/停止脚本（/）
@@ -36,6 +38,29 @@
   - [停止脚本](./../os_linux/sh.md#检查端口号并杀死对应进程)`jenkins-stop.sh`
 - 执行启动脚本`jenkins-start.sh`
 
+#### 2. Docker安装（Liunx）<sup>2</sup>
+
+```sh
+# 查找jenkins镜像
+docker search jenkins
+
+# 选择并拉取适合本机环境的jenkins镜像,以jenkins/jenkins:latest为例
+docker pull jenkins/jenkins:latest
+
+# 创建宿主挂在目录
+mkdir -p /opt/env/docker/jenkins_home
+chmod 777 /opt/env/docker/jenkins_home
+# 创建并运行容器实例
+# -p 10240:8080 ===> 端口映射，后续使用10240端口访问jenkins主页面
+# -p 10241:50000 ===> 端口映射
+# -v /opt/env/docker/jenkins_home:/var/jenkins_home ===> jenkins主目录挂载目录绑定
+# -v /etc/localtime:/etc/localtime ===> 容器使用和服务器同样的时间设置
+docker run -d -p 10240:8080 -p 10241:50000 -v /opt/env/docker/jenkins_home:/var/jenkins_home -v /etc/localtime:/etc/localtime --name jenkins jenkins/jenkins
+
+# 运行成功后，通过{IP}:{PORT}访问主界面
+# 例如：192.168.1.36:10240
+```
+
 ### 部署
 
 #### 通过浏览器客户端对Jenkins进行可视化部署
@@ -54,34 +79,37 @@
   - **NodeJS Plugin**
   - **Subversion Plug-in**
   - **Maven Integration plugin**
+  - **Publish Over SSH**
 
 #### 全局配置（配置构建环境）
 
-- Maven配置（注意，有两处需要配置）
+**构建集成环境可以使用本地环境，也可以使用Jenkins自主选择安装环境**
+
+- Maven配置（本地环境；注意，有两处需要配置）
 
 ![Maven配置1](./img/tool_build_jenkins/global-config-1.png "Maven配置1")
 
 ![Maven配置2](./img/tool_build_jenkins/global-config-2.png "Maven配置2")
 
-- JDK配置
+- JDK配置（本地环境）
 
 ![JDK配置](./img/tool_build_jenkins/global-config-3.png "JDK配置")
 
-- NodeJS配置（该配置项需要安装完NodeJS Plugin插件才会出现）
+- NodeJS配置（本地环境；该配置项需要安装完NodeJS Plugin插件才会出现）
 
-![NodeJS配置](./img/tool_build_jenkins/global-config-4.png "NodeJS配置")
+![NodeJS配置](./img/tool_build_jenkins/global-config-5.png "NodeJS配置")
 
 - 凭证配置（分`SVN`和`Git`配置）
   - 通用步骤（找到账号凭证配置）
 
-    ![账号凭证项](./img/tool_build_jenkins/global-config-5.png "账号凭证项")
-    ![全局凭证](./img/tool_build_jenkins/global-config-6.png "全局凭证")
+    ![账号凭证项](./img/tool_build_jenkins/global-config-6.png "账号凭证项")
+    ![全局凭证](./img/tool_build_jenkins/global-config-7.png "全局凭证")
   - `SVN`
 
-    ![账号凭证配置](./img/tool_build_jenkins/global-config-7.png "账号凭证配置")
+    ![账号凭证配置](./img/tool_build_jenkins/global-config-8.png "账号凭证配置")
   - `Git`
 
-    `TODO`
+    ![账号凭证配置](./img/tool_build_jenkins/global-config-9.png "账号凭证配置")
 
 ## 项目构建
 
@@ -166,6 +194,28 @@
     fi
     ```
 
+### 构建后处理（可选）<sup>3</sup>
+
+构建后处理比较常用的操作是文件传输+文件路径的改变+程序启动，需要用到先前安装的插件**Publish Over SSH**
+
+#### 配置远程连接
+
+前往【系统配置】，找到【Publish over SSH】配置项的【SSH Servers】小项
+
+- 配置连接信息，保存即可
+
+  ![配置连接信息](./img/tool_build_jenkins/system-config-1.png "配置连接信息")
+
+- 在构建项目中配置【构建后操作】操作
+  - Source files：需要传输的文件/文件夹
+  - Remove prefix：需要移除的目录前缀，基于Source files路径
+  - Remote directory：远程的目录（默认为远程用户的目录，root -> /root）
+  - Exec command：需要执行的操作
+
+  ![构建后操作](./img/tool_build_jenkins/post-proccess-1.png "构建后操作")
+
 ## 参考文档
 
 1. [Jenkins中文文档-W3C School](https://www.w3cschool.cn/jenkins/)
+2. [Docker安装Jenkins详细教程](https://blog.csdn.net/qq359605040/article/details/117692609)
+3. [基于Docker安装Jenkins，并配置使用Jenkins打包Node前后端服务部署到远程服务器](https://juejin.cn/post/7067790095767568397#heading-16)
