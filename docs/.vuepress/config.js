@@ -44,6 +44,7 @@ module.exports = {
         sidebarDepth: 2,
         children: [
           ["env_deploy/soft_gis_geoscene", "「软件-GIS」GeoScene"],
+          ["env_deploy/soft_db_kingbase", "「软件-DB」Kingbase"],
           ["env_deploy/tool_build_jenkins", "「工具-构建」Jenkins"],
           ["env_deploy/tool_virtualize_docker", "「工具-虚拟化」Docker"],
           ["env_deploy/tool_cvs_git", "「工具-代码控制」Git"],
