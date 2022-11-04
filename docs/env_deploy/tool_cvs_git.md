@@ -33,14 +33,14 @@
 
 - 打开`Git Bash`，生成rsa文件，以及ssh
 
-```sh
-# 生成新的ssh
-# <email>: 电子邮箱
-ssh-keygen -t rsa -b 4096 -C "<email>"
-# 按回车三次
-# 查看生成的文件，并复制至Github上
-cat ~/.ssh/id_rsa.pub
-```
+  ```sh
+  # 生成新的ssh
+  # <email>: 电子邮箱
+  ssh-keygen -t rsa -b 4096 -C "<email>"
+  # 按回车三次
+  # 查看生成的文件，并复制至Github上
+  cat ~/.ssh/id_rsa.pub
+  ```
 
 - 在Github上创建ssh key
   - 找到并打开`Settings`，找到`SSH adn GPG keys`项(https://github.com/settings/keys)
@@ -58,85 +58,108 @@ cat ~/.ssh/id_rsa.pub
 
 ## 常用命令
 
+  占位符说明
+  
+  1. local: 表示本地分支名称
+  2. remote: 表示远程分支名称
+
 ### 代码管理
 
 - 拉取
   
-```sh
-# 拉去远程代码到本地
-git pull
-```
+  主要有两种方式：`fetch`和`pull`，
+  
+  1. `fetch`：拉取远程仓库代码到新分支，不合并当前分支的改动，需要手动merge，因此`fetch`后常与`merge`配合使用
+  2. `pull`：拉去远程代码到本地，并自动合并当前改动
+  
+  ```sh
+  # fetch + merge
+  git fetch [origin <remote>[:<local>]]
+  git merge <remote>
+
+  # pull
+  git pull [origin <remote>:<local>]
+  ```
 
 - 提交
 
-```sh
-# 查看状态
-git status
-# 添加所有改动文件到暂存区
-git add .
-# 添加指定的改动文件到暂存区
-git add <file>
-# 提交暂存区代码至当前分支，需要填写改动信息
-git commit -m "<message>"
-```
+  ```sh
+  # 查看状态
+  git status
+
+  # 添加所有改动文件到暂存区
+  git add .
+  # 添加指定的改动文件到暂存区
+  git add <file>
+  # 提交暂存区代码至当前分支，需要填写改动信息
+  git commit -m "<message>"
+  ```
 
 - 推送
 
-```sh
-# 提交代码至代码库
-git push
-```
+  ```sh
+  # 推送提交代码至远程仓库
+  git push
+  ```
 
-### 分支管理
+### 本地分支管理
 
-```sh
-# 占位符说明
-# <local>: 表示本地分支名称
-# <remote>: 表示远程分支名称
-```
+- 创建/切换分支
 
-- 创建分支
+  创建本地分支可用`branch`，
+  切换本地分支用的HEAD指向可用`switch`或`checkout`，
+  **`checkout`不仅能用于创建分支，还可以切换分支。**
 
-```sh
-# 创建【本地】分支
-git branch <local>
-# 创建【远程】分支
-git push origin <local>:<remote>
-```
-
-- 切换分支
-
-```sh
-# 切换分支
-git switch <local>
-# 创建并切换分支
-git checkout -b <local>
-```
+  ```sh
+  # 创建【本地】分支
+  git branch <local>
+  # 切换【本地】分支
+  git switch <local>
+  # 创建并切换【本地】分支
+  git checkout -b <local>
+  ```
 
 - 删除分支
 
-```sh
-# 删除【本地】分支
-# 常规删除
-git branch -d <local>
-# 强制删除
-git branch -D <local>
+  删除分支主要使用`branch`和参数`-d/-D`控制
 
-# 删除【远程】分支
-# 常规删除
-git push origin -d <remote>
-# 强制删除
-git push origin -D <remote>
-# 推送空分支
-git push origin :<remote>
+  1. `-d`：常规删除
+  2. `-D`：强制删除，相当于`--delete --force`
 
-```
+  ```sh
+  # 删除【本地】分支
+  # 常规删除
+  git branch -d <local>
+  # 强制删除
+  git branch -D <local>
+  ```
+
+### 远程分支管理
+
+- 创建分支
+
+  ```sh
+  # 创建并切换分支
+  git checkout -b <local>
+  ```
+
+- 删除分支
+
+  ```sh
+  # 删除【远程】分支
+  # 常规删除
+  git push origin -d <remote>
+  # 强制删除
+  git push origin -D <remote>
+  # 推送空分支
+  git push origin :<remote>
+  ```
 
 - 跟踪分支
 
-```sh
-# 当存在本地分支，想远程创建同名分支+跟踪
-git push [-u|--set-upstream] origin <local>
-# 当远程存在分支，想本地创建同名分支+跟踪
-git checkout --track origin/<remote>
-```
+  ```sh
+  # 当存在本地分支，想远程创建同名分支+跟踪
+  git push origin [-u|--set-upstream] <local>
+  # 当远程存在分支，想本地创建同名分支+跟踪
+  git checkout --track origin/<remote>
+  ```
