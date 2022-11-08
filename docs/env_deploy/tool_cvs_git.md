@@ -6,7 +6,8 @@
 
 ## Git的特点优势
 
-1. 分布式。
+1. 分布式。每一部机器都有一个完整的版本库。
+2. 良好的分支策略。鼓励多使用分支管理。
 
 ## Git与SVN（Subversion）的联系和区别
 
@@ -102,6 +103,19 @@
   git push
   ```
 
+- 合并（merge/rebase）、
+
+  1. `merge`用将指定分支与当前分支进行合并
+  2. `rebase`用于将分支的提交更加“线性”，即将某一分支中的最后一个提交备份作为目标分支的下一次提交，并且将该分支的记录抹除，达到“线性”提交的效果。`-i`即`--interactive`，交互模式，能够修改版本提交的顺序。
+
+  ```sh
+  # 将<target>合并至当前分支
+  git merge <target>
+
+  # 将当前分支合并至<target>，如果传入<branch>，则会合并将HEAD指向<branch>
+  git rebase [-i|--interactive] <target> [<branch>]
+  ```
+
 ### 本地分支管理
 
 - 创建/切换分支
@@ -140,7 +154,7 @@
 
   ```sh
   # 创建并切换分支
-  git checkout -b <local>
+  git push orign <local>:<remote>
   ```
 
 - 删除分支
