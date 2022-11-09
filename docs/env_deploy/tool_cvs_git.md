@@ -44,7 +44,7 @@
   ```
 
 - 在Github上创建ssh key
-  - 找到并打开`Settings`，找到`SSH adn GPG keys`项(https://github.com/settings/keys)
+  - 找到并打开`Settings`，找到`SSH adn GPG keys`项(<https://github.com/settings/keys>)
   - 点击`New SSH key`，将复制的内容粘贴至`Key`文本框，并设置好`Title`
   - 保存，即`Add SSH key`
 
@@ -241,7 +241,6 @@
 - `cz-customizable`：自定义提交日志，需要配置
 - `@commitlint/config-conventional`：检测Git提交
 - `@commitlint/cli`：检测Git提交脚手架
-
 
 #### 前置安装
 
