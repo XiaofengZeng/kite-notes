@@ -188,6 +188,8 @@
 
 ## 代码提交规范
 
+### 遵循的规范
+
 ```sh
 <type>(<scope>): <subject>
 
@@ -228,3 +230,123 @@
   
 2. Body（主题内容）：详细描述做了什么样的修改，为什么修改，以及开发的思路...
 3. Footer（页脚注释）：可以写注释，引用Issues...
+
+### 规范检测配置
+
+工具:
+
+- `husky`：主流Git Hook工具，Vue工程集成的是`yorkie`
+- `commitizen`：Git Commit Message规范工具
+- `cz-conventional-changelog`：传统日志
+- `cz-customizable`：自定义提交日志，需要配置
+- `@commitlint/config-conventional`：检测Git提交
+- `@commitlint/cli`：检测Git提交脚手架
+
+
+#### 前置安装
+
+```sh
+# git hook工具
+npm i husky -D
+npx husky-init
+```
+
+#### 预提交配置
+
+1. 自动生成提交内容
+
+安装相关工具
+
+```sh
+# 规范 commit message 的工具
+npm i -g commitizen
+# 使用传统commit规范提示
+npx commitizen init cz-conventional-changelog --save-dev
+# 传统commit规范package.json配置
+"config": {
+  "commitizen": {
+    "path": "./node_modules/cz-conventional-changelog"
+  }
+}
+
+# （可选）使用自定义的commit规范提示，同时需要在根目录下新建.cz-config.js文件
+npm i cz-customizable --save-dev
+# 传统commit规范package.json配置
+"config": {
+  "commitizen": {
+    "path": "./node_modules/cz-customizable"
+  }
+}
+```
+
+配置自定义提交.cz-config.js文件
+
+```js
+module.exports = {
+  // 可选类型
+  types: [
+    { value: "feat", name: "feat:     新功能" },
+    { value: "fix", name: "fix:      修复" },
+    { value: "docs", name: "docs:     文档变更" },
+    { value: "style", name: "style:    代码格式(不影响代码运行的变动)" },
+    {
+      value: "refactor",
+      name: "refactor: 重构(既不是增加feature，也不是修复bug)",
+    },
+    { value: "perf", name: "perf:     性能优化" },
+    { value: "test", name: "test:     增加测试" },
+    { value: "chore", name: "chore:    构建过程或辅助工具的变动" },
+    { value: "revert", name: "revert:   回退" },
+    { value: "build", name: "build:    打包" },
+  ],
+  // 消息步骤
+  messages: {
+    type: "请选择提交类型:",
+    customScope: "请输入修改范围(可选):",
+    subject: "请简要描述提交(必填):",
+    body: "请输入详细描述(可选):",
+    footer: "请输入要关闭的issue(可选):",
+    confirmCommit: "确认使用以上信息提交？(y/n/e/h)",
+  },
+  // 跳过问题
+  skipQuestions: ["body", "footer"],
+  subjectLimit: 72, // subject文字长度默认是72
+};
+```
+
+#### 提交信息检测
+
+安装相关工具
+
+```sh
+# 检测 commit message 的工具
+npm i @commitlint/config-conventional @commitlint/cli -D
+# 在根目录下新建创建commitlint.config.js文件+添加配置
+"config": {
+  "commitizen": {
+    "path": "./node_modules/cz-conventional-changelog"
+  }
+}
+# 创建commit-msg钩子
+npx husky add .husky/commit-msg
+# .husky/commit-msg文件添加
+npx --no-install commitlint --edit $1
+```
+
+配置commitlint.config.js文件
+
+```js
+module.exports = {
+  extends: ["@commitlint/config-conventional"],
+  rules: {
+    "type-enum": [2, "always", ["upd", "feat", "fix", "refactor", "docs", "chore", "style", "revert"]],
+    "type-case": [0],
+    "type-empty": [0],
+    "scope-empty": [0],
+    "scope-case": [0],
+    "subject-full-stop": [0, "never"],
+    "subject-case": [0, "never"],
+    "header-max-length": [0, "always", 72],
+  },
+};
+```
