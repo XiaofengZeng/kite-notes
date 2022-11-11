@@ -44,7 +44,7 @@
   ```
 
 - 在Github上创建ssh key
-  - 找到并打开`Settings`，找到`SSH adn GPG keys`项(https://github.com/settings/keys)
+  - 找到并打开`Settings`，找到`SSH adn GPG keys`项(<https://github.com/settings/keys>)
   - 点击`New SSH key`，将复制的内容粘贴至`Key`文本框，并设置好`Title`
   - 保存，即`Add SSH key`
 
@@ -59,11 +59,67 @@
 
 ## 工作流
 
-![Git工作流](./img/tool_cvs_git/git-workflow.png)
+![Git工作流](./img/tool_cvs_git/git-workflow-1.png)
 
-- Remote: 远程仓库，用于存储正式代码、进行版本发布等操作...
-- Respository：本地仓库，具有**分布式特点**，每个机器都能够有独立的版本库。
-- workspace：工作空间，开发者日常主要的开发工作都在这完成
+### Git工作区域
+
+- **Remote**: 远程仓库，用于存储各种正式代码分支
+  - 主分支`main`
+  - 开发分支`develop`
+  - 版本发布分支`Release`
+- **Respository**：本地仓库，具有**分布式特点**，每台机器都能拥有独立的版本库，在这既可以与工作空间的状态进行管理（主要是对分支的管理操作）：切换本地分支、新增改动、提交改动、暂存/恢复先前修改等...也可以与远程仓库进行关联。
+- **workspace**：工作空间，开发者日常主要的开发工作都在这完成（
+  - 基于开发分支`develop`创建的特性分支`feature/xxx`，进行功能模块开发
+  - 基于主分支`main`的热修复分支`hotfix`，对上线的产品进行快速修复
+  - 等等...
+- **index**：这是新增改动后的索引值（基于`SHA-1算法`生成的哈希值），一般只需要确认其前3~4位就能够找到对应的改动记录，同时也能够在后续用于提交改动至本地仓库
+
+### 团队协作开发流程
+
+![Git团队协作开发流](./img/tool_cvs_git/git-workflow-2.png)
+
+目前主流的Git团队协作开发主要用主分支`master|main`和开发分支`develop`来记录开发历史，而开发者的所有开发活动都基于开发分支上进行。
+
+- `master`：主分支，也可以命名为`main`（`main`的命名是因为BLM运动而出现），这是仓库最主要、最稳定的代码版本，一般只有管理员有写入权限，用于保存发布版本历史，顺便打标签。
+- `develop`：开发分支，一般各种开发活动最终需要集成到该分支。后续考虑代码版本发布时，会基于该分支检出一个发布分支并进行版本发布
+- `feature`：功能开发分支，命名一般为`feature/xxx`。基于`develop`分支检出（相当于父分支为`develop`），开发完成后需要合并至`develop`，一般会出现冲突，需要处理完冲突再进行合并。
+- `hotfix`：紧急修复分支，命名一般为`hotfix/xxx`，唯一可以基于`master`分支检出的分支，修复完后需要合并回`master`和`develop`分支，并且在`master`打好标签。
+- `release`：发布分支，用于向外发布指定版本。
+
+### Git Flow
+
+在Git中，简单地封装了一个指令`git flow`，用于创建标准的工作流，如果熟悉Git的工作流，可以完全不需要这个指令。这个指令可以让我们更方便地进行工作流管理。
+
+```sh
+# 初始化Git工作流，主要是配置master、develop、feature、relase、hotfix等分支
+git flow init [-d | -f]
+
+# 开始新Feature的开发工作 
+git flow feature start <NAME>
+
+# 发布Feature分支，相当于push至远程开发分支
+git flow feature publish <NAME>
+
+# 从远程仓库获取发布的Feature
+git flow feature pull origin <NAME>
+
+# 完成并关闭Feature分支
+git flow feature finish <NAME>
+
+# 开始一个Release分支
+git flow release start <RELEASE> [BASE]
+# 发布一个Release
+git flow release publish <RELEASE>
+# 结束Release
+git flow release finish <RELEASE>
+# 给主分支打标签
+git push --tags
+
+# 开始一个Hotfix
+git flow hotfix start <VERSION> [BASENAME]
+# 结束一个Hotfix
+git flow hotfix finish <VERSION>
+```
 
 ## 常用命令
 
@@ -242,7 +298,6 @@
 - `@commitlint/config-conventional`：检测Git提交
 - `@commitlint/cli`：检测Git提交脚手架
 
-
 #### 前置安装
 
 ```sh
@@ -354,3 +409,7 @@ npx husky-init
       },
     };
     ```
+
+## 参考文档
+
+1. [git flow的使用](https://www.cnblogs.com/lcngu/p/5770288.html)
