@@ -107,20 +107,18 @@ git flow feature pull origin <NAME>
 git flow feature finish <NAME>
 
 # 开始一个Release分支
-git flow release start RELEASE [BASE]
-
+git flow release start <RELEASE> [BASE]
 # 发布一个Release
-git flow release publish RELEASE
+git flow release publish <RELEASE>
 # 结束Release
-git flow release finish RELEASE
+git flow release finish <RELEASE>
 # 给主分支打标签
 git push --tags
 
-#开始一个Hotfix
-git flow hotfix start VERSION [BASENAME]
-
-# 发布一个Hotfix
-git flow hotfix finish VERSION
+# 开始一个Hotfix
+git flow hotfix start <VERSION> [BASENAME]
+# 结束一个Hotfix
+git flow hotfix finish <VERSION>
 ```
 
 ## 常用命令
