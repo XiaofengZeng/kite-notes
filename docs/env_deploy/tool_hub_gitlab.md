@@ -105,7 +105,7 @@ gitlab-ctl tail # 查看日志
 
 [参考Github配置SSH Key](tool_cvs_git.html#配置-与github关联)
 
-## GitLab团队合作<sup>2<sup>
+## GitLab团队合作<sup>2</sup>
 
 ## 参考文档
 
