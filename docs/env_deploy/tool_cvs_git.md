@@ -66,11 +66,11 @@
 - **Remote**: 远程仓库，用于存储各种正式代码分支
   - 主分支`main`
   - 开发分支`develop`
-  - 版本发布分支`Release`
+  - 等等...
 - **Respository**：本地仓库，具有**分布式特点**，每台机器都能拥有独立的版本库，在这既可以与工作空间的状态进行管理（主要是对分支的管理操作）：切换本地分支、新增改动、提交改动、暂存/恢复先前修改等...也可以与远程仓库进行关联。
-- **workspace**：工作空间，开发者日常主要的开发工作都在这完成（
+- **workspace**：工作空间，开发者日常主要的开发工作都在这完成
   - 基于开发分支`develop`创建的特性分支`feature/xxx`，进行功能模块开发
-  - 基于主分支`main`的热修复分支`hotfix`，对上线的产品进行快速修复
+  - 基于主分支`main`的热修复分支`hotfix/xxx`，对上线的产品进行快速修复
   - 等等...
 - **index**：这是新增改动后的索引值（基于`SHA-1算法`生成的哈希值），一般只需要确认其前3~4位就能够找到对应的改动记录，同时也能够在后续用于提交改动至本地仓库
 
@@ -86,9 +86,38 @@
 - `hotfix`：紧急修复分支，命名一般为`hotfix/xxx`，唯一可以基于`master`分支检出的分支，修复完后需要合并回`master`和`develop`分支，并且在`master`打好标签。
 - `release`：发布分支，用于向外发布指定版本。
 
+```sh
+# 一般来说，远程仓库会优先创建好develop分支，用于日常开发。
+# 开发者只需要基于develop分支创建feature分支进行开发，可选择性地在远程中创建跟踪分支
+git checkout -b feature/xxx develop
+git push -u origin feature/xxx 
+
+# 开发完成后，需要合并至develop分支（可能会出现冲突，出现则需要解决）。
+
+# 1. 先在本地仓库提交修改
+git add -A
+git commit -m "feat:xxx"
+
+# 2. 更新远程develop分支
+git pull origin develop
+
+# 3. 合并feat分支至本地develop分支（可能需要处理冲突）
+git checkout develop
+git merge --no-ff feature/xxx
+
+# 4. 推送至远程develop分支
+git push origin develop
+
+# 5. 删除本地和远程分支
+git branch -d feature/xxx
+git push origin -d feature/xxx
+```
+
 ### Git Flow
 
 在Git中，简单地封装了一个指令`git flow`，用于创建标准的工作流，如果熟悉Git的工作流，可以完全不需要这个指令。这个指令可以让我们更方便地进行工作流管理。
+
+![git flow工具](./img/tool_cvs_git/git-workflow-3.png)
 
 ```sh
 # 初始化Git工作流，主要是配置master、develop、feature、relase、hotfix等分支
@@ -409,6 +438,10 @@ npx husky-init
       },
     };
     ```
+
+## 学习/练手资源
+
+[Learn Git Branching](https://learngitbranching.js.org/?locale=zh_CN)
 
 ## 参考文档
 
