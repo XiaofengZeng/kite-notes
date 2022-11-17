@@ -48,6 +48,7 @@ module.exports = {
           ["env_deploy/tool_build_jenkins", "「工具-构建」Jenkins"],
           ["env_deploy/tool_virtualize_docker", "「工具-虚拟化」Docker"],
           ["env_deploy/tool_cvs_git", "「工具-代码控制」Git"],
+          ["env_deploy/tool_hub_gitlab", "「工具-代码托管」GitLab"],
         ],
       },
       {
