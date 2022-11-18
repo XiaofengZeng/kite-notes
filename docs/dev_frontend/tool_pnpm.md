@@ -40,7 +40,8 @@
 - 配置
   - **node环境设置**
 
-    pnpm支持在没有node(npm)的环境下进行[安装](https://www.pnpm.cn/installation)。安装完成后，可以使用`pnpm env`指令对node版本进行设置
+    pnpm支持在没有node(npm)的环境下进行[安装](https://www.pnpm.cn/installation)。
+    安装完成后，可以使用`pnpm env`指令对node版本进行设置
 
     ```sh
     # 全局使用最新node版本
