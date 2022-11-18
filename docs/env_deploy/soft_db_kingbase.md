@@ -18,7 +18,7 @@ bash kdb_check.sh
 vim kdb_install.sh
 ```
 
-![命令行交互安装-自定义配置](img/tool_db_kingbase/install-config-1.png)
+![命令行交互安装-自定义配置](././img/tool_db_kingbase/install-config-1.png)
 
 执行kdb_install.sh脚本，安装人大金仓安装主程序
 
@@ -30,17 +30,17 @@ bash kdb_install.sh
 
 1. 版本选择：R6
 
-    ![命令行交互安装-自定义配置](img/tool_db_kingbase/install-bash-1.png)
+    ![命令行交互安装-自定义配置](./img/tool_db_kingbase/install-bash-1.png)
 2. 兼容模式：Orcale兼容
 
-    ![命令行交互安装-自定义配置](img/tool_db_kingbase/install-bash-2.png)
+    ![命令行交互安装-自定义配置](./img/tool_db_kingbase/install-bash-2.png)
 3. 大小写敏感：敏感
 
-    ![命令行交互安装-自定义配置](img/tool_db_kingbase/install-bash-3.png)
+    ![命令行交互安装-自定义配置](./img/tool_db_kingbase/install-bash-3.png)
 
 安装完成后，会提供将来启动人大金仓服务的指令，并立即启动人大金仓服务
 
-![命令行交互安装-自定义配置](img/tool_db_kingbase/install-done-1.png)
+![命令行交互安装-自定义配置](./img/tool_db_kingbase/install-done-1.png)
 
 ## 创建数据库
 
@@ -57,7 +57,7 @@ create user gisdata with password 'gisdata#123';
 
 配置kgis_tools.sh脚本
 
-![配置kgis_tools.sh脚本](img/tool_db_kingbase/install-config-2.png)
+![配置kgis_tools.sh脚本](./img/tool_db_kingbase/install-config-2.png)
 
 执行脚本kgis_tools.sh
 
@@ -70,7 +70,7 @@ cd ${SH_PATH}
 ./kgis_tools.sh create
 ```
 
-![执行kgis_tools.sh脚本](img/tool_db_kingbase/install-done-2.png)
+![执行kgis_tools.sh脚本](./img/tool_db_kingbase/install-done-2.png)
 
 注：上图ERROR错误，根据人大金仓技术支持反馈，可能是当时这一步没有重新加载配置文件成功导致的，因此可以尝试单独执行该操作。
 
