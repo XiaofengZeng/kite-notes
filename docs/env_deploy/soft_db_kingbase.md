@@ -81,7 +81,7 @@ ksql -U SYSTEM -W 5Y5#123 -d gisdata
 
 alter system set allow_system_table_dml = on;
 select sys_reload_conf();
-update pg_proc set proisstrict=false where proname ilike '%addgeo%' and proargtypes='1043 1043 1043 1043 23 1043 23 16';
+update pg_proc set proisstrict=false where proname like '%addgeo%' and proargtypes='1043 1043 1043 1043 23 1043 23 16';
 alter system set allow_system_table_dml = off;
 select sys_reload_conf();
 ```

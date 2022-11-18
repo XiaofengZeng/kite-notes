@@ -1,6 +1,8 @@
 # Git
 
-> Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. —— Git是一个免费的开源分布式版本控制系统，可以快速高效地处理从小到大的所有项目。
+> Git is a free and open source distributed version control system designed
+> to handle everything from small to very large projects with speed and efficiency.
+> —— Git是一个免费的开源分布式版本控制系统，可以快速高aaa效地处理从小到大的所有项目。
 
 `Git`是[Linus Torvalds](https://baike.baidu.com/item/林纳斯·本纳第克特·托瓦兹/1034429)为了帮助管理Linux内核开发而开发的一个开放源码的版本控制软件
 
