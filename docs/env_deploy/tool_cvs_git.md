@@ -6,24 +6,26 @@
 
 `Git`是[Linus Torvalds](https://baike.baidu.com/item/林纳斯·本纳第克特·托瓦兹/1034429)为了帮助管理Linux内核开发而开发的一个开放源码的版本控制软件
 
-## Git的特点优势
+## Git vs. SVN
 
-1. 分布式。每一部机器都有一个完整的版本库。
-2. 良好的分支策略。鼓励多使用分支管理。
+![Git vs SVN](./img/tool_cvs_git/git-vs-svn-1.png)
 
-## Git与SVN（Subversion）的联系和区别
+### 联系与区别
 
-1. `Git`是分布式的版本控制系统，而`SVN`不是：**最核心的区别**。
-2. `Git`把内容按元数据方式存储，而`SVN`是按文件：所有的资源控制系统都是把文件的元信息隐藏在一个类似 .svn、.cvs 等的文件夹里。
-3. `Git`分支和`SVN`的分支不同：分支在SVN中一点都不特别，其实它就是版本库中的另外一个目录。
-4. `Git`没有一个全局的版本号，而`SVN`有：目前为止这是跟 SVN 相比 Git 缺少的最大的一个特征。
-5. `Git`的内容完整性要优于`SVN`：Git的内容存储使用的是SHA-1哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。
+1. **核心架构不同**（**最核心的区别**）：`Git`是**分布式**的版本控制系统，而`SVN`是**集中式**的，因此，`Git`支持离线工作，`SVN`必须联网才能工作
+2. **概念和指令不同**：`SVN`概念和指令较少，上手容易，而`Git`概念多且复杂，如`add`、`commit`、`push`、`fetch`、`pull`等等，概念多但也意味着功能更加强大
+3. **分支管理不同**：`Git`可以有本地分支，且分支的指针指向的某次提交，而`SVN`没有本地分支，它的分支只是一个拷贝的目录。
+  因此，`Git`分支创建和切换十分便捷，并且在开发过程中遇到突发事情需要另外处理时，使用`Git`的`stash`将当前改动临时存储，使得分支管理更加灵活
 
-## 安装配置
+![Git与SVN对比表格](./img/tool_cvs_git/git-vs-svn-2.png)
+
+## 安装与配置
+
+### 安装
 
 前往[Git](https://git-scm.com/)官网下载安装包，默认安装即可
 
-### 配置（与Github关联）
+### 配置(SSH)
 
 - 修改本地配置config
 
@@ -39,7 +41,12 @@
   ```sh
   # 生成新的ssh
   # <email>: 电子邮箱
+  #-t: 密钥类型, 可以选择 dsa | ecdsa | ed25519 | rsa;
+  #-b: 指定密钥长度
+  #-f: 密钥目录位置, 默认为当前用户home路径下的.ssh隐藏目录, 也就是~/.ssh/, 同时默认密钥文件名以id_rsa开头. 如果是root用户, 则在/root/.ssh/id_rsa, 若为其他用户, 则在/home/<username>/.ssh/id_rsa;
+  #-C: 指定此密钥的备注信息, 需要配置多个免密登录时, 建议携带;
   ssh-keygen -t rsa -b 4096 -C "<email>"
+
   # 按回车三次
   # 查看生成的文件，并复制至Github上
   cat ~/.ssh/id_rsa.pub
@@ -55,28 +62,154 @@
   - 如果出现`Permission denied (publickey).`，说明配置失败，需要重新操作。
 
   ```sh
+  # -T: 禁止分配伪终端
   ssh -T git@github.com
   # 若有提示则输入yes
   ```
 
-## 工作流
+## 基本使用
+
+### 基本概念
 
 ![Git工作流](./img/tool_cvs_git/git-workflow-1.png)
 
-### Git工作区域
-
-- **Remote**: 远程仓库，用于存储各种正式代码分支
+- **Workspace**：工作区，就是计算机上的一个目录。开发者日常主要的开发工作都在这完成
+  - 基于开发分支`develop`创建的特性分支`feature/xxx`，进行功能模块开发\
+  - 基于开发分支`develop`创建的版本分支`release/x.x.x`，进行版本的发布说明
+  - 基于主分支`main`的热修复分支`hotfix/xxx`，对上线的产品进行快速修复
+  - 等等...
+- **Respository**：本地版本库，也称为本地仓库。在这既可以与工作空间的状态进行管理（主要是对分支的管理操作）：切换本地分支、本地版本库与远程版本库的改动推送/拉取
+- **Remote**: 远程版本库，也称为远程仓库。用于存储各种正式代码分支，与本地版本库进行相关操作
   - 主分支`main`
   - 开发分支`develop`
   - 等等...
-- **Respository**：本地仓库，具有**分布式特点**，每台机器都能拥有独立的版本库，在这既可以与工作空间的状态进行管理（主要是对分支的管理操作）：切换本地分支、新增改动、提交改动、暂存/恢复先前修改等...也可以与远程仓库进行关联。
-- **workspace**：工作空间，开发者日常主要的开发工作都在这完成
-  - 基于开发分支`develop`创建的特性分支`feature/xxx`，进行功能模块开发
-  - 基于主分支`main`的热修复分支`hotfix/xxx`，对上线的产品进行快速修复
-  - 等等...
-- **index**：这是新增改动后的索引值（基于`SHA-1算法`生成的哈希值），一般只需要确认其前3~4位就能够找到对应的改动记录，同时也能够在后续用于提交改动至本地仓库
+- **Index**：暂存区，类似缓存的地方，临时保存修改内容: 比如新增改动、提交改动、暂存/恢复先前修改。每次操作后生成的索引值（基于`SHA-1算法`生成的哈希值），一般只需要确认其前3~4位就能够找到对应的改动记录。
 
-### 团队协作开发流程
+### 工作区(Workspace)管理
+
+- 提交
+
+  ```sh
+  # 查看状态
+  git status
+
+  # 添加所有改动文件到暂存区
+  git add .
+  # 添加指定的改动文件到暂存区
+  git add <file>
+  # 提交暂存区代码至当前分支，需要填写改动信息
+  git commit -m "<message>"
+  ```
+
+- 合并（merge/rebase）、
+
+  1. `merge`用将指定分支与当前分支进行合并
+  2. `rebase`用于将分支的提交更加“线性”，即将某一分支中的最后一个提交备份作为目标分支的下一次提交，并且将该分支的记录抹除，达到“线性”提交的效果。`-i`即`--interactive`，交互模式，能够修改版本提交的顺序。
+
+  ```sh
+  # 将<target>合并至当前分支
+  git merge <target>
+
+  # 将当前分支合并至<target>，如果传入<branch>，则会合并将HEAD指向<branch>
+  git rebase [-i|--interactive] <target> [<branch>]
+  ```
+
+### 版本库(Repository)管理
+
+#### 本地版本库(Local)管理
+
+- 拉取
+  
+  主要有两种方式：`fetch`和`pull`，
+  
+  1. `fetch`：拉取远程仓库代码到新分支，不合并当前分支的改动，需要手动merge，因此`fetch`后常与`merge`配合使用
+  2. `pull`：拉去远程代码到本地，并自动合并当前改动
+  
+  ```sh
+  # fetch + merge
+  git fetch [origin <remote>[:<local>]]
+  git merge <remote>
+
+  # pull
+  git pull [origin <remote>:<local>]
+  ```
+
+- 推送
+
+  ```sh
+  # 推送提交代码至远程仓库
+  git push
+  ```
+
+- 创建/切换分支
+
+  创建本地分支可用`branch`，
+  切换本地分支用的HEAD指向可用`switch`或`checkout`，
+  **`checkout`不仅能用于创建分支，还可以切换分支。**
+
+  ```sh
+  # 创建【本地】分支
+  git branch <local>
+  # 切换【本地】分支
+  git switch <local>
+  # 创建并切换【本地】分支
+  git checkout -b <local>
+  ```
+
+- 删除分支
+
+  删除分支主要使用`branch`和参数`-d/-D`控制
+
+  1. `-d`：常规删除
+  2. `-D`：强制删除，相当于`--delete --force`
+
+  ```sh
+  # 删除【本地】分支
+  # 常规删除
+  git branch -d <local>
+  # 强制删除
+  git branch -D <local>
+  ```
+
+#### 远程版本库(Remote)管理
+
+- 创建分支
+
+  ```sh
+  # 创建并切换分支
+  git push orign <local>:<remote>
+  ```
+
+- 删除分支
+
+  ```sh
+  # 删除【远程】分支
+  # 常规删除
+  git push origin -d <remote>
+  # 强制删除
+  git push origin -D <remote>
+  # 推送空分支
+  git push origin :<remote>
+  ```
+
+- 跟踪分支
+
+  ```sh
+  # 当存在本地分支，想远程创建同名分支+跟踪
+  git push origin [-u|--set-upstream] <local>
+  # 当远程存在分支，想本地创建同名分支+跟踪
+  git checkout --track origin/<remote>
+  ```
+
+### 暂存区(Index)管理
+
+## 进阶使用
+
+### Git Hook
+
+钩子
+
+## 团队协作流程
 
 ![Git团队协作开发流](./img/tool_cvs_git/git-workflow-2.png)
 
@@ -87,6 +220,8 @@
 - `feature`：功能开发分支，命名一般为`feature/xxx`。基于`develop`分支检出（相当于父分支为`develop`），开发完成后需要合并至`develop`，一般会出现冲突，需要处理完冲突再进行合并。
 - `hotfix`：紧急修复分支，命名一般为`hotfix/xxx`，唯一可以基于`master`分支检出的分支，修复完后需要合并回`master`和`develop`分支，并且在`master`打好标签。
 - `release`：发布分支，用于向外发布指定版本。
+
+### 传统协作流
 
 ```sh
 # 一般来说，远程仓库会优先创建好develop分支，用于日常开发。
@@ -115,7 +250,7 @@ git branch -d feature/xxx
 git push origin -d feature/xxx
 ```
 
-### Git Flow
+### 高效协作流：Git Flow
 
 在Git中，简单地封装了一个指令`git flow`，用于创建标准的工作流，如果熟悉Git的工作流，可以完全不需要这个指令。这个指令可以让我们更方便地进行工作流管理。
 
@@ -152,130 +287,9 @@ git flow hotfix start <VERSION> [BASENAME]
 git flow hotfix finish <VERSION>
 ```
 
-## 常用命令
+### 代码提交规范
 
-  占位符说明
-  
-  1. local: 表示本地分支名称
-  2. remote: 表示远程分支名称
-
-### 代码管理
-
-- 拉取
-  
-  主要有两种方式：`fetch`和`pull`，
-  
-  1. `fetch`：拉取远程仓库代码到新分支，不合并当前分支的改动，需要手动merge，因此`fetch`后常与`merge`配合使用
-  2. `pull`：拉去远程代码到本地，并自动合并当前改动
-  
-  ```sh
-  # fetch + merge
-  git fetch [origin <remote>[:<local>]]
-  git merge <remote>
-
-  # pull
-  git pull [origin <remote>:<local>]
-  ```
-
-- 提交
-
-  ```sh
-  # 查看状态
-  git status
-
-  # 添加所有改动文件到暂存区
-  git add .
-  # 添加指定的改动文件到暂存区
-  git add <file>
-  # 提交暂存区代码至当前分支，需要填写改动信息
-  git commit -m "<message>"
-  ```
-
-- 推送
-
-  ```sh
-  # 推送提交代码至远程仓库
-  git push
-  ```
-
-- 合并（merge/rebase）、
-
-  1. `merge`用将指定分支与当前分支进行合并
-  2. `rebase`用于将分支的提交更加“线性”，即将某一分支中的最后一个提交备份作为目标分支的下一次提交，并且将该分支的记录抹除，达到“线性”提交的效果。`-i`即`--interactive`，交互模式，能够修改版本提交的顺序。
-
-  ```sh
-  # 将<target>合并至当前分支
-  git merge <target>
-
-  # 将当前分支合并至<target>，如果传入<branch>，则会合并将HEAD指向<branch>
-  git rebase [-i|--interactive] <target> [<branch>]
-  ```
-
-### 本地分支管理
-
-- 创建/切换分支
-
-  创建本地分支可用`branch`，
-  切换本地分支用的HEAD指向可用`switch`或`checkout`，
-  **`checkout`不仅能用于创建分支，还可以切换分支。**
-
-  ```sh
-  # 创建【本地】分支
-  git branch <local>
-  # 切换【本地】分支
-  git switch <local>
-  # 创建并切换【本地】分支
-  git checkout -b <local>
-  ```
-
-- 删除分支
-
-  删除分支主要使用`branch`和参数`-d/-D`控制
-
-  1. `-d`：常规删除
-  2. `-D`：强制删除，相当于`--delete --force`
-
-  ```sh
-  # 删除【本地】分支
-  # 常规删除
-  git branch -d <local>
-  # 强制删除
-  git branch -D <local>
-  ```
-
-### 远程分支管理
-
-- 创建分支
-
-  ```sh
-  # 创建并切换分支
-  git push orign <local>:<remote>
-  ```
-
-- 删除分支
-
-  ```sh
-  # 删除【远程】分支
-  # 常规删除
-  git push origin -d <remote>
-  # 强制删除
-  git push origin -D <remote>
-  # 推送空分支
-  git push origin :<remote>
-  ```
-
-- 跟踪分支
-
-  ```sh
-  # 当存在本地分支，想远程创建同名分支+跟踪
-  git push origin [-u|--set-upstream] <local>
-  # 当远程存在分支，想本地创建同名分支+跟踪
-  git checkout --track origin/<remote>
-  ```
-
-## 代码提交规范
-
-### 遵循的规范
+#### 主流的规范
 
 ```sh
 <type>(<scope>): <subject>
@@ -287,9 +301,9 @@ git flow hotfix finish <VERSION>
 
 使用主流的Angular代码提交规范（如上代码块），主要分为三个部分:
 
-1. Header（标题行）：必填，描述主要**修改类型**和**内容**
+1. **Header（标题行）**：必填，描述主要**修改类型**和**内容**
 
-    - type：commit类型
+    - **type**：commit类型
 
       ```sh
       feat: 新功能、新特性
@@ -307,18 +321,18 @@ git flow hotfix finish <VERSION>
       workflow: 工作流相关文件修改
       ```
 
-    - scope：说明commit影响的范围
+    - **scope**：说明commit影响的范围
 
       说明commit影响的范围，如global, common, route, component, utils, build...
 
-    - subject：commit的简要说明
+    - **subject**：commit的简要说明
 
       简要说明commit的内容
   
-2. Body（主题内容）：详细描述做了什么样的修改，为什么修改，以及开发的思路...
-3. Footer（页脚注释）：可以写注释，引用Issues...
+2. **Body（主题内容）**：详细描述做了什么样的修改，为什么修改，以及开发的思路...
+3. **Footer（页脚注释）**：可以写注释，引用Issues...
 
-### 规范检测配置
+#### 提交信息检测配置(husky+commmitizen+commitlint)
 
 工具:
 
@@ -441,6 +455,20 @@ npx husky-init
     };
     ```
 
+## 工具
+
+- **独立软件**
+  - [SourceTree](https://www.sourcetreeapp.com/)
+- **IDE插件**
+  - [GitLens](https://www.gitkraken.com/gitlens)
+- **NPM依赖**
+  - [husky](https://www.npmjs.com/package/husky)：Git Hook工具
+  - [commitizen](https://www.npmjs.com/package/commitizen)：提交前交互生成message工具
+  - [cz-customizable](https://www.npmjs.com/package/cz-customizable)：提交前交互提示自定义工具
+  - commitlint
+    - [@commitlint/cli](https://www.npmjs.com/package/@commitlint/cli)：提交前message规范检测工具
+    - [@commitlint/config-conventional](https://www.npmjs.com/package/@commitlint/config-conventional)：提交前message自定义规范工具
+
 ## 学习/练手资源
 
 [Learn Git Branching](https://learngitbranching.js.org/?locale=zh_CN)
@@ -448,3 +476,4 @@ npx husky-init
 ## 参考文档
 
 1. [git flow的使用](https://www.cnblogs.com/lcngu/p/5770288.html)
+2. [对比Git与SVN，这篇讲的很易懂](https://zhuanlan.zhihu.com/p/48148269)
