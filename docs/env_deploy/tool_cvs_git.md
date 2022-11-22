@@ -187,19 +187,6 @@
   git mv file_from file_to
   ```
 
-- 合并（merge/rebase）、
-
-  1. `merge`用将指定分支与当前分支进行合并
-  2. `rebase`用于将分支的提交更加“线性”，即将某一分支中的最后一个提交备份作为目标分支的下一次提交，并且将该分支的记录抹除，达到“线性”提交的效果。`-i`即`--interactive`，交互模式，能够修改版本提交的顺序。
-
-  ```sh
-  # 将<target>合并至当前分支
-  git merge <target>
-
-  # 将当前分支合并至<target>，如果传入<branch>，则会合并将HEAD指向<branch>
-  git rebase [-i|--interactive] <target> [<branch>]
-  ```
-
 ### 版本库(Repository)管理
 
 #### 本地版本库(Local)管理
@@ -243,6 +230,45 @@ git log --pretty=format:"%h - %an, %ar : %s"
 git log --pretty=format:"%h %s" --graph
 ```
 
+- 创建/切换分支
+
+  创建本地分支可用`branch`，
+  切换本地分支用的HEAD指向可用`switch`或`checkout`，
+  **`checkout`不仅能用于创建分支，还可以切换分支。**
+
+  ```sh
+  # 创建【本地】分支
+  git branch <local>
+  # 切换【本地】分支，即将HEAD指针指向该分支
+  git switch <local>
+  git checkout <local>
+  # 创建并切换【本地】分支，并将HEAD指针指向该分支
+  git checkout -b <local>
+  ```
+
+- 合并分支
+
+  - `merge`
+    当想将检出的分支合并至某一分支中（如`main`），则可以先切换至该分支`mian`，然后合并检出的分支。
+    可能会出现`快速前进(fast-forward)`，即**当两个分支需要合并时，如果一个分支能够顺着移动到另一个分支，则Git在合并时，只会简单的将指针向前推进**；
+    合并时也可能会出现冲突，因此需要解决完后，通过`git add`将文件暂存，确定冲突已解决，再`git commit`提交此次合并
+
+    ```sh
+    git checkout <breach>
+    git merge <target>
+    # 可视化合并工具
+    git mergetool
+    ```
+
+  - `rebase`
+
+    用于将分支的提交更加“线性”，即将某一分支中的最后一个提交备份作为目标分支的下一次提交，并且将该分支的记录抹除，达到“线性”提交的效果。`-i`即`--interactive`，交互模式，能够修改版本提交的顺序。
+
+    ```sh
+    # 将当前分支合并至<target>，如果传入<branch>，则会合并将HEAD指向<branch>
+    git rebase [-i|--interactive] <target> [<branch>]
+    ```
+
 - 拉取
   
   主要有两种方式：`fetch`和`pull`，
@@ -252,7 +278,7 @@ git log --pretty=format:"%h %s" --graph
   
   ```sh
   # fetch + merge
-  git fetch [origin <remote>[:<local>]]
+  git fetch [origin <remote>[:<local>]] [--all]
   git merge <remote>
 
   # pull
@@ -264,21 +290,6 @@ git log --pretty=format:"%h %s" --graph
   ```sh
   # 推送提交代码至远程仓库
   git push
-  ```
-
-- 创建/切换分支
-
-  创建本地分支可用`branch`，
-  切换本地分支用的HEAD指向可用`switch`或`checkout`，
-  **`checkout`不仅能用于创建分支，还可以切换分支。**
-
-  ```sh
-  # 创建【本地】分支
-  git branch <local>
-  # 切换【本地】分支
-  git switch <local>
-  # 创建并切换【本地】分支
-  git checkout -b <local>
   ```
 
 - 删除分支
@@ -310,7 +321,7 @@ git log --pretty=format:"%h %s" --graph
   ```sh
   # 删除【远程】分支
   # 常规删除
-  git push origin -d <remote>
+  git push origin [-d|--delete] <remote>
   # 强制删除
   git push origin -D <remote>
   # 推送空分支
@@ -323,7 +334,9 @@ git log --pretty=format:"%h %s" --graph
   # 当存在本地分支，想远程创建同名分支+跟踪
   git push origin [-u|--set-upstream] <local>
   # 当远程存在分支，想本地创建同名分支+跟踪
-  git checkout --track origin/<remote>
+  # track：跟踪分支
+  # alias：分支重命名，默认与远程分支相同
+  git checkout -b [--track] [alias] <remote>/<branch>
   ```
 
 ### 暂存区(Index)管理
