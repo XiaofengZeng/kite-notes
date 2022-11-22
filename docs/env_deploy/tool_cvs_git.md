@@ -101,8 +101,6 @@
 
 ### 工作区(Workspace)管理
 
-TODO: add commit merge rebase diff stash
-
 #### 文件状态
 
 在Git中，文件状态分为`已跟踪`和`未跟踪`，除了已跟踪的文件以外，其他都是未跟踪文件。
@@ -208,6 +206,43 @@ TODO: add commit merge rebase diff stash
 
 TODO: clone fetch pull push
 
+- 获取Git仓库
+
+```sh
+# 将当前文件夹初始化为Git仓库
+git init
+# 将远程仓库克隆至本地
+# url：协议地址(HTTPS|SSH)
+# dirname: 新目录名称
+git clone <url> [<dirname>]
+```
+
+- 查看提交历史
+
+  `git log`会根据时间顺序列出所有的提交，最近的一次提交列在最上面，
+  并且列出每个提交的 **SHA-1 校验和**、**作者的名字和电子邮件地址**、**提交时间**以及**提交说明**
+
+```sh
+# -p: 列出每次的修改内容
+# --stat：列出每次文件修改统计信息
+# --graph：使用ASCII字符列出分支、合并历史
+# --pretty: 美化日志格式，format=oneline | short | full | fuller，还支持format自定义格式化
+# -n：列出最近几次的提交日志
+# --since, --after: 时间过滤，从什么时候开始--since='2022-11-22'
+# --until, --before: 时间过滤，在什么时候之前--since='2022-11-22'
+# --author：作者过滤
+# ...
+git log [-p|--patch] [--stat] [--graph] [--pretty=<format>] [-<n>] [--since= | --after=] [--until= | --before=] [--author=]
+
+# 一行输出日志信息
+git log --pretty=oneline
+
+# 自定义格式化输出日志："哈希值 - 作者名称, 据当下多长时间 : 提交说明"
+git log --pretty=format:"%h - %an, %ar : %s"
+# 自定义格式化+分支、合并情况的日志
+git log --pretty=format:"%h %s" --graph
+```
+
 - 拉取
   
   主要有两种方式：`fetch`和`pull`，
@@ -293,7 +328,23 @@ TODO: clone fetch pull push
 
 ### 暂存区(Index)管理
 
-TODO：commit
+- **撤销**
+  - 撤销提交，当提交信息填写错误或者漏掉几个文件没有添加至暂存区，因此需要撤销原本的提交，运行带上`--amend`参数的提交命令即可。
+    如果自上次提交以来没有做任何修改而执行带`--amend`参数提交指令，Git会保持原来的快照，只修改提交信息；
+    如果做了修改，则需要将改动的文件`add`后，再执行带`--amend`参数提交指令，这次提交会启动文本编辑器，并显示第一次提交信息，
+    在此基础上修改后作为第二次提交信息，第二次提交会代替第一次提交的结果。
+
+    ```sh
+    git commit --amend
+    ```
+
+  - 对已在暂存区的文件撤销，例如添加两个文件修改至暂存库，需要撤销其中一个文件的改动，则可以使用`git reset`或`git restore`；
+  - 撤销工作区的文件修改，恢复到上一次提交时的样子，使用`git reset`或`git restore`也可以实现
+
+    ```sh
+    git reset HEAD [file1]...
+    git restore [file1]...
+    ```
 
 ## 进阶使用
 
@@ -570,3 +621,4 @@ npx husky-init
 1. [git flow的使用](https://www.cnblogs.com/lcngu/p/5770288.html)
 2. [对比Git与SVN，这篇讲的很易懂](https://zhuanlan.zhihu.com/p/48148269)
 3. [SVN vs. Git: 2021年哪个适合你](https://zhuanlan.zhihu.com/p/423859270)
+4. [Pro Git](https://git-scm.com/book/zh/v2)
