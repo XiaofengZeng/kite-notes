@@ -3,7 +3,7 @@
 
 > Git is a free and open source distributed version control system designed
 > to handle everything from small to very large projects with speed and efficiency.
-> —— Git是一个免费的开源分布式版本控制系统，可以快速高aaa效地处理从小到大的所有项目。
+> —— Git是一个免费的开源分布式版本控制系统，可以快速高效地处理从小到大的所有项目。
 
 `Git`是[Linus Torvalds](https://baike.baidu.com/item/林纳斯·本纳第克特·托瓦兹/1034429)为了帮助管理Linux内核开发而开发的一个开放源码的版本控制软件
 
@@ -97,7 +97,7 @@
   - 主分支`main`
   - 开发分支`develop`
   - 等等...
-- **Index**：暂存区，类似缓存的地方，临时保存修改内容: 比如新增改动、提交改动、暂存/恢复先前修改。每次操作后生成的索引值（基于`SHA-1算法`生成的哈希值），一般只需要确认其前3~4位就能够找到对应的改动记录。
+- **Index**：暂存区，类似缓存的地方，临时保存修改内容：比如新增改动、提交改动、暂存/恢复先前修改。每次操作后生成的索引值（基于`SHA-1`算法生成的哈希校验和），一般只需要确认其前3~4位就能够找到对应的改动记录。
 
 ### 工作区(Workspace)管理
 
@@ -109,7 +109,7 @@
 - **Untracked**(未跟踪)：未被Git跟踪的文件，一般为新建/删除文件
 - **Unmodified**(未改动)：已被Git跟踪的文件，但在工作过程中未被修改的文件
 - **Modified**(有改动)：已被Git跟踪的文件，并且在工作中发生改动的文件
-- **Staged**(已暂存)：已被Git跟踪的文件，并且被放入暂存区
+- **Staged**(已暂存)：已被Git跟踪的文件，并且已被添加至暂存区
 
 ![文件的状态变化周期](./img/tool_cvs_git/file-lifecycle.png)
 
@@ -177,7 +177,7 @@
   git rm --cached [file]
   ```
 
-- **移动文件**
+- **移动文件/文件更名**
 
   在Git中，移动文件可以使用`git mv`完成，正如Linux的`mv`一样，能够移动文件，也能够更改文件名。
   若是更改文件名称，在`git status`中能看到更名的文件的改动状态则会变成`renamed`。
@@ -191,9 +191,7 @@
 
 #### 本地版本库(Local)管理
 
-TODO: clone fetch pull push
-
-- 获取Git仓库
+- **获取Git仓库**
 
 ```sh
 # 将当前文件夹初始化为Git仓库
@@ -204,7 +202,7 @@ git init
 git clone <url> [<dirname>]
 ```
 
-- 查看提交历史
+- **查看提交历史**
 
   `git log`会根据时间顺序列出所有的提交，最近的一次提交列在最上面，
   并且列出每个提交的 **SHA-1 校验和**、**作者的名字和电子邮件地址**、**提交时间**以及**提交说明**
@@ -230,11 +228,11 @@ git log --pretty=format:"%h - %an, %ar : %s"
 git log --pretty=format:"%h %s" --graph
 ```
 
-- 创建/切换分支
+- **创建/切换分支**
 
-  创建本地分支可用`branch`，
-  切换本地分支用的HEAD指向可用`switch`或`checkout`，
-  **`checkout`不仅能用于创建分支，还可以切换分支。**
+  创建本地分支可用`git branch`，
+  切换本地分支用的HEAD指向可用`git switch`或`git checkout`，
+  **`git checkout`不仅能用于创建分支，还可以切换分支。**
 
   ```sh
   # 创建【本地】分支
@@ -246,10 +244,14 @@ git log --pretty=format:"%h %s" --graph
   git checkout -b <local>
   ```
 
-- 合并分支
+- **合并分支**
 
-  - `merge`
+  Git的合并有两种方式：`merge`和`rebase`。它们各有特点，根据不同场景选择使用能够实现较为理想的效果
+
+  - **merge**
+
     当想将检出的分支合并至某一分支中（如`main`），则可以先切换至该分支`mian`，然后合并检出的分支。
+
     可能会出现`快速前进(fast-forward)`，即**当两个分支需要合并时，如果一个分支能够顺着移动到另一个分支，则Git在合并时，只会简单的将指针向前推进**；
     合并时也可能会出现冲突，因此需要解决完后，通过`git add`将文件暂存，确定冲突已解决，再`git commit`提交此次合并
 
@@ -260,18 +262,23 @@ git log --pretty=format:"%h %s" --graph
     git mergetool
     ```
 
-  - `rebase`
+  - **rebase**
 
-    用于将分支的提交更加“线性”，即将某一分支中的最后一个提交备份作为目标分支的下一次提交，并且将该分支的记录抹除，达到“线性”提交的效果。`-i`即`--interactive`，交互模式，能够修改版本提交的顺序。
+    **基变**(rebase)是将一个主题分支的修改通过“备份”，依序合并至目标基底分支上，并且丢弃掉主题分支上的所有提交记录，使得分支的提交记录更加地“线性”，更加清晰。
+
+    但是需要注意的是，**如果提交存在于本地仓库之外，而其他人可能基于这些提交进行开发，那么不要执行变基**。
 
     ```sh
-    # 将当前分支合并至<target>，如果传入<branch>，则会合并将HEAD指向<branch>
-    git rebase [-i|--interactive] <target> [<branch>]
+    # 将当前分支合并至<basebranch>，如果传入<topicbranch>，则会合并将HEAD指向<topicbranch>
+    # -i：交互模式，能够修改版本提交的顺序。
+    # basebranch：目标基底分支
+    # topicbranch：主题分支
+    git rebase [-i|--interactive] <basebranch> [<topicbranch>]
     ```
 
-- 拉取
+- **拉取**
   
-  主要有两种方式：`fetch`和`pull`，
+  主要有两种方式：`fetch`和`pull`
   
   1. `fetch`：拉取远程仓库代码到新分支，不合并当前分支的改动，需要手动merge，因此`fetch`后常与`merge`配合使用
   2. `pull`：拉去远程代码到本地，并自动合并当前改动
@@ -282,17 +289,18 @@ git log --pretty=format:"%h %s" --graph
   git merge <remote>
 
   # pull
-  git pull [origin <remote>:<local>]
+  # --rebase：拉取并基变远程仓库到本地，防止他人将基变推送至远程仓库导致记录缺失
+  git pull [--rebase] [origin <remote>:<local>] 
   ```
 
-- 推送
+- **推送**
 
   ```sh
   # 推送提交代码至远程仓库
   git push
   ```
 
-- 删除分支
+- **删除分支**
 
   删除分支主要使用`branch`和参数`-d/-D`控制
 
@@ -309,39 +317,41 @@ git log --pretty=format:"%h %s" --graph
 
 #### 远程版本库(Remote)管理
 
-- 创建分支
+与本地仓库类似，远程仓库也存在分支、标签等，其分支以`<remote>/<branch>`的形式命名，`remote`的名称一般为origin，在检出远程分支时也能够重命名。
+
+- **创建分支**
 
   ```sh
   # 创建并切换分支
-  git push orign <local>:<remote>
+  git push <remote> <localbranch>:<remotebranch>
   ```
 
-- 删除分支
+- **删除分支**
 
   ```sh
   # 删除【远程】分支
   # 常规删除
-  git push origin [-d|--delete] <remote>
+  git push <remote> [-d|--delete] <localbranch>
   # 强制删除
-  git push origin -D <remote>
+  git push <remote> -D <localbranch>
   # 推送空分支
-  git push origin :<remote>
+  git push <remote> :<localbranch>
   ```
 
-- 跟踪分支
+- **跟踪分支**
 
   ```sh
   # 当存在本地分支，想远程创建同名分支+跟踪
-  git push origin [-u|--set-upstream] <local>
+  git push <remote> [-u|--set-upstream] <local>
   # 当远程存在分支，想本地创建同名分支+跟踪
   # track：跟踪分支
   # alias：分支重命名，默认与远程分支相同
-  git checkout -b [--track] [alias] <remote>/<branch>
+  git checkout -b [--track] [alias] <remote>/<remotebranch>
   ```
 
 ### 暂存区(Index)管理
 
-- **撤销**
+- **撤销操作**
   - 撤销提交，当提交信息填写错误或者漏掉几个文件没有添加至暂存区，因此需要撤销原本的提交，运行带上`--amend`参数的提交命令即可。
     如果自上次提交以来没有做任何修改而执行带`--amend`参数提交指令，Git会保持原来的快照，只修改提交信息；
     如果做了修改，则需要将改动的文件`add`后，再执行带`--amend`参数提交指令，这次提交会启动文本编辑器，并显示第一次提交信息，
@@ -363,7 +373,31 @@ git log --pretty=format:"%h %s" --graph
 
 ### Git Hook
 
-TODO：Hook
+钩子(Hook)一般是在执行特定动作时触发一些自定义脚本，Git中的钩子存放在`.git/hooks`目录下，当初始化Git仓库后，会默认存放后缀为`.sample`的钩子示例。
+若需要开启，只需要移除这个后缀即可。
+
+Git中存在两大类钩子：`客户端钩子`和`服务端钩子`。客户端钩子主要用于提交合并前后的操作。服务端钩子主要用于接收被推送的提交的联网操作。
+
+- 客户端钩子
+  - 提交工作流钩子
+    - pre-commit：在输入提交信息前运行。它用于检查即将提交的快照，常用于查找受否存在遗漏，测试运行是否正常，代码编写是否规范等等...
+    - prepare-commit-msg：在启动提交信息编辑器之前，默认信息被创建之后运行。常与提交信息模板搭配使用，动态插入信息
+    - commit-msg：在提交信息时的运行。如果以钩子脚本非零值退出，Git将放弃提交。常用于在提交通过前验证项目状态或提交信息
+    - post-commit：在整个提交过程完成后运行。一般用于通知之类的事情
+  - 电子邮件工作流钩子
+    - applypatch-msg
+    - applypatch-msg
+    - post-applypatch
+  - 其它客户端钩子
+    - pre-rebase
+    - post-rewrite
+    - post-checkout
+    - post-merge
+    - pre-push
+- 服务端钩子
+  - pre-receive
+  - update
+  - post-receive
 
 ## 团队协作流程
 
