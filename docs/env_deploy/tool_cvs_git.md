@@ -250,7 +250,7 @@ git log --pretty=format:"%h %s" --graph
 
   - **merge**
 
-    当想将检出的分支合并至某一分支中（如`main`），则可以先切换至该分支`mian`，然后合并检出的分支。
+    当想将检出的分支合并至某一分支中（如`main`），则可以先切换至该分支`main`，然后合并检出的分支。
 
     可能会出现`快速前进(fast-forward)`，即**当两个分支需要合并时，如果一个分支能够顺着移动到另一个分支，则Git在合并时，只会简单的将指针向前推进**；
     合并时也可能会出现冲突，因此需要解决完后，通过`git add`将文件暂存，确定冲突已解决，再`git commit`提交此次合并
@@ -380,24 +380,24 @@ Git中存在两大类钩子：`客户端钩子`和`服务端钩子`。客户端�
 
 - 客户端钩子
   - 提交工作流钩子
-    - pre-commit：在输入提交信息前运行。它用于检查即将提交的快照，常用于查找受否存在遗漏，测试运行是否正常，代码编写是否规范等等...
-    - prepare-commit-msg：在启动提交信息编辑器之前，默认信息被创建之后运行。常与提交信息模板搭配使用，动态插入信息
-    - commit-msg：在提交信息时的运行。如果以钩子脚本非零值退出，Git将放弃提交。常用于在提交通过前验证项目状态或提交信息
-    - post-commit：在整个提交过程完成后运行。一般用于通知之类的事情
+    - **`pre-commit`**：在输入提交信息前运行。它用于检查即将提交的快照，常用于查找受否存在遗漏，测试运行是否正常，代码编写是否规范等等...
+    - **`prepare-commit-msg`**：在启动提交信息编辑器之前，默认信息被创建之后运行。常与提交信息模板搭配使用，动态插入信息
+    - **`commit-msg`**：在提交信息时的运行。如果以钩子脚本非零值退出，Git将放弃提交。常用于在提交通过前验证项目状态或提交信息
+    - **`post-commit`**：在整个提交过程完成后运行。一般用于通知之类的事情
   - 电子邮件工作流钩子
-    - applypatch-msg
-    - applypatch-msg
-    - post-applypatch
+    - **`applypatch-msg`**
+    - **`applypatch-msg`**
+    - **`post-applypatch`**
   - 其它客户端钩子
-    - pre-rebase
-    - post-rewrite
-    - post-checkout
-    - post-merge
-    - pre-push
+    - **`pre-rebase`**
+    - **`post-rewrite`**
+    - **`post-checkout`**
+    - **`post-merge`**
+    - **`pre-push`**
 - 服务端钩子
-  - pre-receive
-  - update
-  - post-receive
+  - **`pre-receive`**
+  - **`update`**
+  - **`post-receive`**
 
 ## 团队协作流程
 
@@ -413,69 +413,127 @@ Git中存在两大类钩子：`客户端钩子`和`服务端钩子`。客户端�
 
 ### 传统协作流
 
-```sh
-# 一般来说，远程仓库会优先创建好develop分支，用于日常开发。
-# 开发者只需要基于develop分支创建feature分支进行开发，可选择性地在远程中创建跟踪分支
-git checkout -b feature/xxx develop
-git push -u origin feature/xxx 
+- **新的功能(feature)**
 
-# 开发完成后，需要合并至develop分支（可能会出现冲突，出现则需要解决）。
+  每个新功能应该有独立的分支进行开发，这样能够在不干扰开发分支develop的前提下进行本地开发，开发完成后再合并回开发分支即可
 
-# 1. 先在本地仓库提交修改
-git add -A
-git commit -m "feat:xxx"
+  ```sh
+  # 一般来说，远程仓库会优先创建好develop分支，用于日常开发。
+  # 开发者只需要基于develop分支创建feature分支进行开发，可选择性地在远程中创建跟踪分支
+  git checkout -b feature/xxx develop
+  git push -u origin feature/xxx
 
-# 2. 更新远程develop分支
-git pull origin develop
+  # 开发完成后，需要合并至develop分支（可能会出现冲突，出现则需要解决）
+  # 1. 先在本地仓库提交修改
+  git add -A
+  git commit -m "feat:xxx"
 
-# 3. 合并feat分支至本地develop分支（可能需要处理冲突）
-git checkout develop
-git merge --no-ff feature/xxx
+  # 2. 更新远程develop分支
+  git pull origin develop
 
-# 4. 推送至远程develop分支
-git push origin develop
+  # 3. 合并feat分支至本地develop分支（可能需要处理冲突）
+  git checkout develop
+  git merge --no-ff feature/xxx
 
-# 5. 删除本地和远程分支
-git branch -d feature/xxx
-git push origin -d feature/xxx
-```
+  # 4. 推送至远程develop分支
+  git push origin develop
+
+  # 5. 删除本地和远程分支
+  git branch -d feature/xxx
+  git push origin -d feature/xxx
+  ```
+
+- **新的发布版本(release)**
+
+  发布前的准备，包括一些清理工作、全面的测试、文档的更新以及任何其他的准备工作
+
+  ```sh
+  # 基于develop分支检出一个新分支用于版本发布
+  git checkout -b <VERSION> develop
+
+  # 发布前的工作完成后，需要将分支合并至main和develop中，最后删除本地的发布分支
+  git checkout main
+  git merge <VERSION>
+  git push
+
+  git checkout develop
+  git merge <VERSION>
+  git push
+
+  git branch -d <VERSION>
+
+  # 当合并至主分支main中，需要打上合适的标签
+  git tag -a <VERSION> -m "xxx" main
+  git push --tags
+  ```
+
+- **新的修复补丁(hotfix)**
+
+  当主分支出现漏洞，需要从该分支中检出修复分支，将漏洞修复完成后再合并至主分支，**同时也要合并至开发分支**
+
+  ```sh
+  git checkout -b hotfix/xxx master
+
+  git checkout master
+  git merge hotfix/xxx
+  git push
+
+  git checkout develop
+  git merge hotfix/xxx
+  git push
+  git branch -d hotfix/xxx
+  ```
 
 ### 高效协作流：Git Flow
 
-在Git中，简单地封装了一个指令`git flow`，用于创建标准的工作流，如果熟悉Git的工作流，可以完全不需要这个指令。这个指令可以让我们更方便地进行工作流管理。
+在Git中，简单地封装了一个指令`git flow`，用于创建标准的工作流，如果熟悉Git的工作流，可以完全不需要这个指令。
+这个指令可以让我们更方便地进行工作流管理
 
 ![git flow工具](./img/tool_cvs_git/git-workflow-3.png)
 
-```sh
-# 初始化Git工作流，主要是配置master、develop、feature、relase、hotfix等分支
-git flow init [-d | -f]
+- **初始化Git Flow工作流**
 
-# 开始新Feature的开发工作 
-git flow feature start <NAME>
+  初始化Git工作流，主要是配置master、develop、feature、relase、hotfix等分支
 
-# 发布Feature分支，相当于push至远程开发分支
-git flow feature publish <NAME>
+  ```sh
+  git flow init [-d | -f]
+  ```
 
-# 从远程仓库获取发布的Feature
-git flow feature pull origin <NAME>
+- **新的功能(feature)**
 
-# 完成并关闭Feature分支
-git flow feature finish <NAME>
+  ```sh
+  # 开始新Feature的开发工作 
+  git flow feature start <NAME>
+  # 发布Feature分支，相当于push至远程开发分支
+  git flow feature publish <NAME>
+  # 从远程仓库获取发布的Feature
+  git flow feature pull origin <NAME>
+  # 完成并关闭Feature分支
+  git flow feature finish <NAME>
+  ```
+  
+- **新的发布版本(release)**
 
-# 开始一个Release分支
-git flow release start <RELEASE> [BASE]
-# 发布一个Release
-git flow release publish <RELEASE>
-# 结束Release
-git flow release finish <RELEASE>
-# 给主分支打标签
-git push --tags
+  ```sh
+  # 开始一个Release分支
+  git flow release start <VERSION> [BASE]
+  # 发布一个Release
+  git flow release publish <VERSION>
+  # 结束Release
+  git flow release finish <VERSION>
+  # 给主分支打标签
+  git tag -a <VERSION> -m "xxx" main
+  git push --tags
+  ```
 
-# 开始一个Hotfix
-git flow hotfix start <VERSION> [BASENAME]
-# 结束一个Hotfix
-git flow hotfix finish <VERSION>
-```
+- **新的修复补丁(hotfix)**
+
+  ```sh
+  # 开始一个Hotfix
+  git flow hotfix start <VERSION> [BASENAME]
+  # 结束一个Hotfix
+  git flow hotfix finish <VERSION>
+  ```
 
 ### 代码提交规范
 
