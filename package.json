@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "docs:deploy": "vuepress build docs && bash deploy.sh",
     "prepare": "husky install",
     "markdownlint": "npx markdownlint-cli2 **/*.md #node_modules",
     "commit": "cz"
