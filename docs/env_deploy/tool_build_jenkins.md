@@ -1,6 +1,8 @@
 # Jenkins
 
-<u>Jenkins是一个独立的开源软件项目，是基于Java开发的一种持续集成工具，用于监控持续重复的工作，旨在提供一个开放易用的软件平台，使软件的持续集成变成可能。前身是Hudson是一个可扩展的持续集成引擎。可用于自动化各种任务，如构建，测试和部署软件。Jenkins可以通过本机系统包Docker安装，甚至可以通过安装Java Runtime Environment的任何机器独立运行。</u><sup>1</sup>
+<u>Jenkins是一个独立的开源软件项目，是基于Java开发的一种持续集成工具，用于监控持续重复的工作，旨在提供一个开放易用的软件平台，使软件的持续集成变成可能。
+前身是Hudson是一个可扩展的持续集成引擎。可用于自动化各种任务，如构建，测试和部署软件。
+Jenkins可以通过本机系统包Docker安装，甚至可以通过安装Java Runtime Environment的任何机器独立运行。</u><sup>1</sup>
 
 ## 安装+部署
 
@@ -55,7 +57,13 @@ chmod 777 /opt/env/docker/jenkins_home
 # -p 10241:50000 ===> 端口映射
 # -v /opt/env/docker/jenkins_home:/var/jenkins_home ===> jenkins主目录挂载目录绑定
 # -v /etc/localtime:/etc/localtime ===> 容器使用和服务器同样的时间设置
-docker run -d -p 10240:8080 -p 10241:50000 -v /opt/env/docker/jenkins_home:/var/jenkins_home -v /etc/localtime:/etc/localtime --name jenkins jenkins/jenkins
+docker run -d 
+  --name jenkins \
+  -p 10240:8080 \
+  -p 10241:50000 \
+  -v /opt/env/docker/jenkins_home:/var/jenkins_home \
+  -v /etc/localtime:/etc/localtime \
+  jenkins/jenkins
 
 # 运行成功后，通过{IP}:{PORT}访问主界面
 # 例如：192.168.1.36:10240
