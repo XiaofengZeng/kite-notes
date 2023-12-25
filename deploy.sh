@@ -12,7 +12,10 @@ cd docs/.vuepress/dist
 git add -A
 git commit -m 'docs(deploy): deploy to github pages'
 
+# 如果发布到 https://<USERNAME>.github.io
+# git push -f git@github.com:XiaofengZeng/<USERNAME>.github.io.git master
+
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:XiaofengZeng/kite-notes.git main:gh-pages
+git push -f git@github.com:XiaofengZeng/kite-blogs.git main
 
 cd -
