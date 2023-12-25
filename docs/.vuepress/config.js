@@ -1,7 +1,7 @@
 module.exports = {
   title: 'kite-notes',
   description: 'some notes about development.',
-  base: '/notes/',
+  base: '/kite-notes/',
   nav: [{ text: 'Home', link: '/' }],
 
   // 放在html的head标签中
