@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>节流&amp;防抖 | kite-notes</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/kite-notes/icon/nest.png">
+    <meta name="description" content="some notes about development.">
+    <meta name="keywords" content="笔记">
+    
+    <link rel="preload" href="/kite-notes/assets/css/0.styles.f5731900.css" as="style"><link rel="preload" href="/kite-notes/assets/js/app.5dc82d96.js" as="script"><link rel="preload" href="/kite-notes/assets/js/2.6a409917.js" as="script"><link rel="preload" href="/kite-notes/assets/js/19.e00caebc.js" as="script"><link rel="prefetch" href="/kite-notes/assets/js/10.f2ba713c.js"><link rel="prefetch" href="/kite-notes/assets/js/11.16dd54f6.js"><link rel="prefetch" href="/kite-notes/assets/js/12.623ca261.js"><link rel="prefetch" href="/kite-notes/assets/js/13.11866706.js"><link rel="prefetch" href="/kite-notes/assets/js/14.7d50c443.js"><link rel="prefetch" href="/kite-notes/assets/js/15.8e0fe604.js"><link rel="prefetch" href="/kite-notes/assets/js/16.d289b3d6.js"><link rel="prefetch" href="/kite-notes/assets/js/17.f5e9846d.js"><link rel="prefetch" href="/kite-notes/assets/js/18.52da8f0c.js"><link rel="prefetch" href="/kite-notes/assets/js/20.01799517.js"><link rel="prefetch" href="/kite-notes/assets/js/21.0bf7f712.js"><link rel="prefetch" href="/kite-notes/assets/js/22.17163a68.js"><link rel="prefetch" href="/kite-notes/assets/js/23.c107cf2f.js"><link rel="prefetch" href="/kite-notes/assets/js/24.e2b2b935.js"><link rel="prefetch" href="/kite-notes/assets/js/25.84ba4df2.js"><link rel="prefetch" href="/kite-notes/assets/js/26.75c92247.js"><link rel="prefetch" href="/kite-notes/assets/js/27.efd9ac88.js"><link rel="prefetch" href="/kite-notes/assets/js/28.4eddef6f.js"><link rel="prefetch" href="/kite-notes/assets/js/29.8bd3d904.js"><link rel="prefetch" href="/kite-notes/assets/js/3.bf545f87.js"><link rel="prefetch" href="/kite-notes/assets/js/30.3cb9f33b.js"><link rel="prefetch" href="/kite-notes/assets/js/31.a66e4816.js"><link rel="prefetch" href="/kite-notes/assets/js/32.ffae9dd7.js"><link rel="prefetch" href="/kite-notes/assets/js/33.13496dfb.js"><link rel="prefetch" href="/kite-notes/assets/js/34.1d289e84.js"><link rel="prefetch" href="/kite-notes/assets/js/35.39ff3110.js"><link rel="prefetch" href="/kite-notes/assets/js/36.bd1d78cf.js"><link rel="prefetch" href="/kite-notes/assets/js/37.ddc7f7a8.js"><link rel="prefetch" href="/kite-notes/assets/js/4.4cddb015.js"><link rel="prefetch" href="/kite-notes/assets/js/5.d129e6b5.js"><link rel="prefetch" href="/kite-notes/assets/js/6.c851d9cf.js"><link rel="prefetch" href="/kite-notes/assets/js/7.6e252507.js"><link rel="prefetch" href="/kite-notes/assets/js/8.24cd82e5.js"><link rel="prefetch" href="/kite-notes/assets/js/9.29ee41e8.js">
+    <link rel="stylesheet" href="/kite-notes/assets/css/0.styles.f5731900.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/kite-notes/" class="home-link router-link-active"><img src="/kite-notes/icon/nest.png" alt="kite-notes" class="logo"> <span class="site-name can-hide">kite-notes</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"> <a href="https://github.com/XiaofengZeng/kite-notes" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"> <a href="https://github.com/XiaofengZeng/kite-notes" target="_blank" rel="noopener noreferrer" class="repo-link">
+    Github
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>环境安装部署</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/kite-notes/env_deploy/soft_gis_geoscene.html" class="sidebar-link">「软件-GIS」GeoScene</a></li><li><a href="/kite-notes/env_deploy/soft_db_kingbase.html" class="sidebar-link">「软件-DB」Kingbase</a></li><li><a href="/kite-notes/env_deploy/tool_build_jenkins.html" class="sidebar-link">「工具-构建」Jenkins</a></li><li><a href="/kite-notes/env_deploy/tool_virtualize_docker.html" class="sidebar-link">「工具-虚拟化」Docker</a></li><li><a href="/kite-notes/env_deploy/tool_cvs_git.html" class="sidebar-link">「工具-代码控制」Git</a></li><li><a href="/kite-notes/env_deploy/tool_hub_gitlab.html" class="sidebar-link">「工具-代码托管」GitLab</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>「开发」前端</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/kite-notes/dev_frontend/tool_pnpm.html" class="sidebar-link">「工具-依赖管理」pnpm</a></li><li><a href="/kite-notes/dev_frontend/js_es6.html" class="sidebar-link">「JavaScript」ES6</a></li><li><a href="/kite-notes/dev_frontend/js_utils.html" class="sidebar-link">「JavaScript」常用操作</a></li><li><a href="/kite-notes/dev_frontend/js_throttle_debounce.html" aria-current="page" class="active sidebar-link">「JavaScript」节流&amp;防抖</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/kite-notes/dev_frontend/js_throttle_debounce.html#节流" class="sidebar-link">节流</a></li><li class="sidebar-sub-header"><a href="/kite-notes/dev_frontend/js_throttle_debounce.html#防抖" class="sidebar-link">防抖</a></li><li class="sidebar-sub-header"><a href="/kite-notes/dev_frontend/js_throttle_debounce.html#两者的联系与区别" class="sidebar-link">两者的联系与区别</a></li></ul></li><li><a href="/kite-notes/dev_frontend/js_polling.html" class="sidebar-link">「JavaScript」轮询</a></li><li><a href="/kite-notes/dev_frontend/js_canvas.html" class="sidebar-link">「JavaScript」Canvas画布</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>「开发」GIS</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/kite-notes/dev_gis/tool_mapshaper.html" class="sidebar-link">「小工具」mapshaper</a></li><li><a href="/kite-notes/dev_gis/algo_simplify.html" class="sidebar-link">「算法」抽稀（概化）</a></li><li><a href="/kite-notes/dev_gis/esri_arcgis_server.html" class="sidebar-link">「ESRI」ArcGIS Server</a></li><li><a href="/kite-notes/dev_gis/special_3d_gis.html" class="sidebar-link">「方向」三维GIS开发工程师</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>地理信息科学</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/kite-notes/gis/data_poi_aoi_loi.html" class="sidebar-link">「数据」POI/AOI/LOI</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>「系统」Linux</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/kite-notes/os_linux/cmd.html" class="sidebar-link">「Linux」常用指令</a></li><li><a href="/kite-notes/os_linux/sh.html" class="sidebar-link">「Linux」常用脚本</a></li><li><a href="/kite-notes/os_linux/operation.html" class="sidebar-link">「Linux」常用操作</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>「系统」Windows</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/kite-notes/os_windows/cmd.html" class="sidebar-link">「Windows」常用指令</a></li><li><a href="/kite-notes/os_windows/bat.html" class="sidebar-link">「Windows」常用脚本</a></li><li><a href="/kite-notes/os_windows/operation.html" class="sidebar-link">「Windows」常用操作</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>「个人」总结与反思</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/kite-notes/myself/summary_2022.html" class="sidebar-link">「年终总结」2022</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="节流-防抖"><a href="#节流-防抖" class="header-anchor">#</a> 节流&amp;防抖</h1> <p>节流和防抖主要是为了优化前端的因多次回调导致性能下降问题以及减少后端请求处理压力。常用于短时间内触发重复事件的处理逻辑。</p> <p><strong>节流</strong>：在一定时间内只发起第一次调用，之后的具体时间段内，无视对其回调函数重复调用</p> <p><strong>防抖</strong>：在计时开始/结束后调用，若在一定时间内重复触发，则重新计时，直到最后一次调用</p> <h2 id="节流"><a href="#节流" class="header-anchor">#</a> 节流</h2> <p>节流有三种实现方式，<strong>时间戳</strong>、<strong>定时器</strong>以及<strong>两者的结合</strong></p> <p>常见场景：</p> <ol><li>事件回调处理，如鼠标移动事件<code>mousemove</code>、窗口大小改变事件<code>resize</code></li></ol> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * 时间戳实现节流
+ * @param {Function} fn 回调函数
+ * @param {Number} delay 允许时长
+ * @returns {Function} 
+ */</span>
+<span class="token keyword">function</span> <span class="token function">throttleByTimeStamp</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> delay</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> timeOld <span class="token operator">=</span> <span class="token operator">+</span>Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> timeNew <span class="token operator">=</span> <span class="token operator">+</span>Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>timeNew <span class="token operator">-</span> timeOld <span class="token operator">&gt;=</span> delay<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      timeOld <span class="token operator">=</span> <span class="token operator">+</span>Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * 计时器实现节流
+ * @param {Function} fn 回调函数
+ * @param {Number} delay 允许时长
+ * @returns {Function}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">throttleByTimer</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> delay</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> timer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>timer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      timer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        timer <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> delay<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>
+  <span class="token string">&quot;mousemove&quot;</span><span class="token punctuation">,</span>
+  <span class="token comment">// 测试-时间戳实现</span>
+  <span class="token comment">// throttleByTimeStamp(function (res) {</span>
+  <span class="token comment">//   console.log(+Date.now());</span>
+  <span class="token comment">// }, 1000)</span>
+  <span class="token comment">// 测试-定时器实现</span>
+  <span class="token function">throttleByTimer</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">+</span>Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="防抖"><a href="#防抖" class="header-anchor">#</a> 防抖</h2> <p><u>防抖主要应用在一些经过连续操作结束后，只处理一次回调的场景，如<code>&lt;input&gt;</code>或<code>&lt;button&gt;</code>处理。</u></p> <p>常见场景：</p> <ol><li>搜索输入框的动态索引（如谷歌搜索引擎）</li> <li>重复点击提交表单按钮</li></ol> <p>主要的实现方式是使用<strong>定时器</strong>，但有时候也会出现<strong>防抖需要立即执行</strong>的情况</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * 延迟执行
+ * @param {Function} fn 回调函数
+ * @param {Number} delay 延迟时长
+ * @returns {Function}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">debounce</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> delay</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> timeout <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> ctx <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> args <span class="token operator">=</span> arguments<span class="token punctuation">;</span>
+    <span class="token comment">// 每次出发回调就会清除掉上一次的计时器，并重新定义生成器</span>
+    <span class="token function">clearTimeout</span><span class="token punctuation">(</span>timeout<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    timeout <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> delay<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * 立即执行
+ * @param {Function} fn 回调函数
+ * @param {Number} delay 延迟时长
+ * @param {Boolean} immediate 是否立即执行
+ * @returns {Function}
+ */</span>
+<span class="token keyword">function</span> <span class="token function">debounceImmediate</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> delay<span class="token punctuation">,</span> immediate</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> timeout <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> ctx <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> args <span class="token operator">=</span> arguments<span class="token punctuation">;</span>
+
+    <span class="token comment">// 清除掉上一次的计时器</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>timeout<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">clearTimeout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>immediate<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> callNow <span class="token operator">=</span> <span class="token operator">!</span>timeout<span class="token punctuation">;</span> <span class="token comment">// timeout为空则立即执行</span>
+      <span class="token comment">// 随后将计时器置空（重新开始）</span>
+      timeout <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        timeout <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> delay<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>callNow<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      timeout <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> delay<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="两者的联系与区别"><a href="#两者的联系与区别" class="header-anchor">#</a> 两者的联系与区别</h2> <p>联系：</p> <ol><li>节流和防抖都是为了减轻前端处理性能压力（回调函数的执行频率），节省资源开销</li> <li>节流和防抖都可以通过<code>setTimeout</code>实现</li></ol> <p>区别：</p> <ol><li>节流：在一段时间内的连续操作，只执行一次回调</li> <li>防抖：在一段时间内的连续操作，只执行最后一次回调（通过<code>setTimeout</code>和<code>clearTimeout</code>实现）</li></ol></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/kite-notes/dev_frontend/js_utils.html" class="prev">
+        「JavaScript」常用操作
+      </a></span> <span class="next"><a href="/kite-notes/dev_frontend/js_polling.html">
+        「JavaScript」轮询
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/kite-notes/assets/js/app.5dc82d96.js" defer></script><script src="/kite-notes/assets/js/2.6a409917.js" defer></script><script src="/kite-notes/assets/js/19.e00caebc.js" defer></script>
+  </body>
+</html>
