@@ -3,6 +3,7 @@ index: false
 icon: book
 category:
   - Linux
+date: 2022-10-25
 ---
 
 # 常用脚本

@@ -1,10 +1,6 @@
 # kite_notes
 
-## 目标
-
-尽可能做到一周两篇文章更新
-
-## 做什么？
+## 记录什么？
 
 - 关于自己对技术追求的记录
   - 环境部署
@@ -22,30 +18,95 @@
   
 - 新建目录（在没有笔记归属的模块时）
 
-  在docs目录下新建文件夹，并在该目录下新建README.md文件
+  在docs目录下新建文件夹（**一级模块**），并在该目录下新建README.md文件（该文件作为当前模块下的目录索引文件），该目录仍可继续新建文件夹（二级/三级...模块）
 
-- 新建`markdown`文件（笔记的载体）
+```md
+---
+title: 一级模块名称
+index: false
+icon: laptop-code
+---
 
-  在docs目录下的指定模块下新建`.md`拓展名的文件
+<AutoCatalog />
+```
 
-- 引入笔记
+对于新建目录（一级模块）而言，它是应用于导航栏，作为路由，包含它的子模块，因此，需要在导航栏配置文件（`docs/.vuepress/navbar.ts`）中做好配置：
 
-  在`.vuepress`文件夹中，在`themeConfig.sidebar`配置项中配置笔记的路由
-  
-  ```javascript
-  themeConfig: {
-    sidebar: {
-      title: "xxx", // 笔记模块标题
-      collapsable: false,  // 是否展开
-      sidebarDepth: 2, // 节点展示的深度（即支持显示哪个等级的标题 h1 h2...），默认是展开h1
-      children: [
-        // 细化笔记路由和标题
-        ["<module1>/<notes1>", "<title1>"],
-        ["<module1>/<notes2>", "<title2>"],
-      ],
-    }
-  }
-  ```
+```ts
+import { navbar } from 'vuepress-theme-hope';
+
+export default navbar([
+  '/',
+  {
+    text: '前端',
+    icon: 'pen-to-square',
+    prefix: '/front-end/',  // 一级模块（父文件夹）
+    children: [             // 二模块（子文件夹）
+      'javascript',
+      'css',
+      'html',
+      'tools'
+    ]
+  },
+  {
+    text: 'GIS',
+    icon: 'pen-to-square',
+    prefix: '/gis/',       // 一级模块（父文件夹）
+    children: [
+      { 
+        text: '2D', 
+        prefix: '/2d/',    // 二级模块（子文件夹）
+        children: [
+          'openlayers'     // 三级模块（孙文件夹）
+        ] 
+      },
+      { 
+        text: '3D', 
+        prefix: '/3d/',    // 二级模块（子文件夹）
+        children: [
+          'cesium',        // 三级模块（孙文件夹）
+          'ol-cesium',
+        ]
+      },   
+    ]
+  }
+]);
+```
+
+对于新建目录（**二级及其以下的模块**），它是应用于侧边栏，作为子路由，包含该模块的系列文章，因此，需要在侧边栏配置文件（`docs/.vuepress/sidebar.ts`）中做好配置：
+
+```ts
+import { sidebar } from 'vuepress-theme-hope';
+
+export default sidebar({
+  '/front-end/javascript/': [   // 路由地址：/一级模块/二级模块/
+    {
+      text: 'ES6语法',
+      icon: 'book',
+      prefix: 'es6/',           // 系列文章前缀(三级模块)： /一级模块/二级模块/三级模块/
+      children: [
+        {
+          text: '01. JavaScript与ECMAScript',
+          link: 'JavaScript-and-ECMAScript'   // 具体文章： /一级模块/二级模块/三级模块/文章文件名
+        },
+        {
+          text: '02. var let const',
+          link: 'var-let-const'
+        },
+        // ...
+      ]
+    },
+  ],
+  '/front-end/css/': [
+    // ...
+  ],
+  '/front-end/html/': [
+    // ...
+  ]
+});
+```
+
+- 在对应的级别模块下，新建`markdown`文件（笔记的载体，以`.md`作为文件拓展名）
 
 ## 如何使用该工程？
 
