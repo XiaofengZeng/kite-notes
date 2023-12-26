@@ -36,7 +36,7 @@ export default navbar([
     icon: 'pen-to-square',
     prefix: "/deployment/",
     children: [
-      { text: 'GeoScene', link: 'geoscene' },
+      // { text: 'GeoScene', link: 'geoscene' },
       { text: 'Docker', link: 'docker' },
       { text: 'Git', link: 'git' },
       { text: 'GitLab', link: 'gitlab' },

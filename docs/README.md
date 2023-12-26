@@ -4,7 +4,7 @@ layout: BlogHome
 icon: home
 title: 主页
 heroImage: /assets/icon/kite.png
-heroText: Kite-Nest
+heroText: Kite-Notes
 heroFullScreen: true
 tagline: Stay hungry. Stay foolish.
 bgImage: https://baotangguo.cn:8081/
