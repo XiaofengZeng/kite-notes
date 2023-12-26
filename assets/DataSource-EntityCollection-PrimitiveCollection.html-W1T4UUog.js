@@ -1,0 +1,1 @@
+import{_ as t}from"./plugin-vue_export-helper-x3n3nnut.js";import{o as e,c as o}from"./app-S7AmktQN.js";const c={};function i(r,n){return e(),o("div")}const _=t(c,[["render",i],["__file","DataSource-EntityCollection-PrimitiveCollection.html.vue"]]);export{_ as default};
