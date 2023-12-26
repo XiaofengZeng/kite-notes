@@ -3,7 +3,7 @@ index: false
 icon: laptop-code
 category:
   - 部署/使用手册
-tags:
+tag:
   - Git
 date: 2022-11-23
 ---

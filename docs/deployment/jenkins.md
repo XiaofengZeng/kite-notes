@@ -3,8 +3,9 @@ index: false
 icon: laptop-code
 category:
   - 部署/使用手册
-tag: 
+tags:
   - Jenkins
+date: 2022-08-13
 ---
 
 # Jenkins
@@ -15,11 +16,11 @@ Jenkins可以通过本机系统包Docker安装，甚至可以通过安装Java Ru
 
 ## 安装+部署
 
-<!-- ### 环境准备
+### 环境准备
 
-- [前提条件-JDK安装+配置](../os_linux/sh.md#jdk环境-安装-配置)
-- [前端-Node安装+配置](../os_linux/sh.md#node环境-安装-配置)
-- [后端-Maven安装+配置](../os_linux/sh.md#maven环境-安装-配置) -->
+- [前提条件-JDK安装+配置](../system/linux/sh.html#jdk环境-安装-配置)
+- [前端-Node安装+配置](../system/linux/sh.html#node环境-安装-配置)
+- [后端-Maven安装+配置](../system/linux/sh.html#maven环境-安装-配置)
 
 ### 安装
 
@@ -46,7 +47,7 @@ Jenkins可以通过本机系统包Docker安装，甚至可以通过安装Java Ru
   nohup java -jar $WAR_PATH/jenkins.war --httpPort=8020 > $WAR_PATH/jenkins.log 2>&1 &
   ```
   
-  - [停止脚本](./../os_linux/sh.md#检查端口号并杀死对应进程)`jenkins-stop.sh`
+  - [停止脚本](../system/linux/sh.html#检查端口号并杀死对应进程)`jenkins-stop.sh`
 - 执行启动脚本`jenkins-start.sh`
 
 #### 2. Docker安装（Liunx）<sup>2</sup>
@@ -156,7 +157,7 @@ docker run -d
   - `clean package -DskipTests`：即先清理原有的再打包，同时不执行测试用例
 
 - 注意构建代码前后处理
-  - 构建代码前处理：主要是判断该JAR包的端口是否存在，存在则杀死->[Shell脚本](./../os_linux/sh.md#检查端口号并杀死对应进程)
+  - 构建代码前处理：主要是判断该JAR包的端口是否存在，存在则杀死->[Shell脚本](../system/linux/sh.html#检查端口号并杀死对应进程)
   - 构建代码后处理：移动JAR包到指定目录，重启启动
 
     ```sh

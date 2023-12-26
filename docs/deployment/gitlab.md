@@ -3,8 +3,9 @@ index: false
 icon: laptop-code
 category:
   - 部署/使用手册
-tag: 
+tag:
   - GitLab
+date: 2022-11-16
 ---
 
 # GitLab

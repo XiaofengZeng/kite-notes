@@ -3,6 +3,7 @@ index: false
 icon: laptop-code
 category:
   - JavaScript
+date: 2022-09-03
 ---
 
 # JavaScript 常用操作

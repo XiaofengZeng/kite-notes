@@ -1,3 +1,11 @@
+---
+index: false
+icon: laptop-code
+category:
+  - JavaScript
+date: 2022-08-07
+---
+
 # pnpm
 
 ## 1. npmp简介
