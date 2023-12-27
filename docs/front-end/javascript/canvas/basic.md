@@ -5,6 +5,7 @@ category:
   - JavaScript
 tag:
   - Canvas
+date: 2022-09-02
 ---
 
 # Canvas 画布
