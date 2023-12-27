@@ -108,24 +108,14 @@ export default sidebar({
 
 - 在对应的级别模块下，新建`markdown`文件（笔记的载体，以`.md`作为文件拓展名）
 
-## 如何使用该工程？
+## 如何配置该工程的工作流？
 
-- 安装
+![Obsidian-Git-workflow](/docs/.vuepress/public/assets/images/obsidian-git-workflow.png)
 
-  推荐使用`pnpm`工具进行安装，但使用`npm`/`yarn`也没有问题
-
-  ```sh
-  pnpm install
-  ```
-
-- 开发调试
-
-  ```sh
-  pnpm docs:dev
-  ```
-
-- 打包部署
-
-  ```sh
-  pnpm docs:build
-  ```
+- 该工程已与`Obsidian`进行的绑定，用于日常笔记博客的编写。通过其第三方插件`obsidian-git`实现自动/手动提交文档，省去使用集成开发环境（`IDE`）进行编辑
+- 但目前对于新笔记博客的创建，仍然依赖于集成开发环境（`IDE`），因为需要配置导航栏和侧边栏。在`develop`分支上进行，随后推送至远程仓库
+- 编写笔记时需要切换至`obsidian`分支！！！
+- 在完成博客时手动将本地提交推送至远程`obsidian`分支
+- 最后通过PR合并代码至`develop`分支再到`main`分支
+- 随后`Github Action`会监听到`push`分支的推送，进行页面的构建和部署
+- 最终呈现在对应网站上，访问即可
