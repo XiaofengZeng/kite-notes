@@ -7,10 +7,20 @@ export default navbar([
     icon: 'pen-to-square',
     prefix: "/front-end/",
     children: [
-      'javascript',
-      'css',
-      'html',
-      'tools'
+      {
+        text: '语言基础',
+        children: [
+          'javascript',
+          'css',
+          'html',
+        ]
+      },
+      {
+        text: '依赖管理工具',
+        children: [
+          { text: 'pnpm', link: 'package-manager-tool/pnpm' },
+        ]
+      },
     ]
   },
   {
@@ -18,9 +28,23 @@ export default navbar([
     icon: 'pen-to-square',
     prefix: "/gis/",
     children: [
-      'cesium',
-      'ol-cesium',
-      'openlayers',
+      {
+        text: '地图框架',
+        children: [
+          'cesium',
+          'ol-cesium',
+          'openlayers',
+        ]
+      },
+      {
+        text: '数据',
+        children: [
+          'cesium',
+          'ol-cesium',
+          'openlayers',
+        ]
+      }
+
     ]
   },
   {
