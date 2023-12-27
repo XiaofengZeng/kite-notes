@@ -37,8 +37,27 @@ export default navbar([
         ]
       },
       {
+        text: '地图服务',
+        children: [
+          { text: 'ArcGIS Server', link: 'server/arcgis-server' },
+        ]
+      },
+      {
         text: '数据资源',
         children: [
+          { text: 'POI/AOI/LOI', link: 'resources/poi-aoi-loi' },
+        ]
+      },
+      {
+        text: '地理处理',
+        children: [
+          { text: 'mapshaper', link: 'geoprocessing/mapshaper' },
+        ]
+      },
+      {
+        text: '地理算法',
+        children: [
+          { text: '抽稀', link: 'algorithms/simplify' },
         ]
       }
     ]
@@ -78,7 +97,7 @@ export default navbar([
     icon: 'pen-to-square',
     prefix: "/experience/",
     children: [
-      // { text: '年终总结-2022', link: 'summary-2022' },
+      { text: '年终总结-2022', link: 'summary-2022' },
     ]
   },
 ]);
