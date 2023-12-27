@@ -1,1 +1,0 @@
-import{_ as t}from"./plugin-vue_export-helper-x3n3nnut.js";import{o as a,c as o,b as e,d as r}from"./app-nlX3gzzp.js";const c={},s=e("h1",{id:"常用脚本",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#常用脚本","aria-hidden":"true"},"#"),r(" 常用脚本")],-1),n=[s];function _(d,i){return a(),o("div",null,n)}const f=t(c,[["render",_],["__file","bat.html.vue"]]);export{f as default};
