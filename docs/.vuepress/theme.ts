@@ -16,7 +16,7 @@ export default hopeTheme({
 
   logo: '/assets/icon/nest.png',
 
-  repo: 'https://github.com/XiaofengZeng/kite-notes',
+  // repo: 'https://github.com/XiaofengZeng/kite-notes',
 
   docsDir: 'docs',
 
@@ -26,11 +26,11 @@ export default hopeTheme({
   // sidebar
   sidebar,
 
-  footer: '默认页脚',
+  footer: 'kite-notes',
 
   displayFooter: true,
 
-  darkmode: 'auto',
+  // darkmode: 'auto',
 
   blog: {
     avatar: '/assets/images/avatar.jpg',

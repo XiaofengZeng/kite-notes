@@ -37,15 +37,27 @@ export default navbar([
         ]
       },
       {
+        text: '地图服务',
+        children: [
+          { text: 'ArcGIS Server', link: 'server/arcgis-server' },
+        ]
+      },
+      {
         text: '数据资源',
         children: [
-
+          { text: 'POI/AOI/LOI', link: 'resources/poi-aoi-loi' },
         ]
       },
       {
         text: '地理处理',
         children: [
-          
+          { text: 'mapshaper', link: 'geoprocessing/mapshaper' },
+        ]
+      },
+      {
+        text: '地理算法',
+        children: [
+          { text: '抽稀', link: 'algorithms/simplify' },
         ]
       }
     ]
