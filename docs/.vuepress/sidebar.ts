@@ -79,16 +79,6 @@ export default sidebar({
       link: 'utils',
     },
   ],
-  '/front-end/tools/': [
-    {
-      text: '依赖管理工具',
-      icon: 'book',
-      prefix: 'package-manager-tool',
-      children: [
-        'pnpm'
-      ]
-    }
-  ],
 
   '/gis/cesium': [
     {
