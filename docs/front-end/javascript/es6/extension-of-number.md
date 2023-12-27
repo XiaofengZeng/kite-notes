@@ -1,6 +1,7 @@
 ---
 index: false
 icon: laptop-code
+date: 2023-10-07
 category:
   - JavaScript
 ---

@@ -3,8 +3,9 @@ index: false
 icon: laptop-code
 category:
   - 部署/使用手册
-tag: 
+tag:
   - Kingbase
+date: 2022-10-28
 ---
 
 # Kingbase（人大金仓数据库）
