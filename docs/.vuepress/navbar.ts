@@ -37,14 +37,10 @@ export default navbar([
         ]
       },
       {
-        text: '数据',
+        text: '数据资源',
         children: [
-          'cesium',
-          'ol-cesium',
-          'openlayers',
         ]
       }
-
     ]
   },
   {
@@ -75,6 +71,14 @@ export default navbar([
     children: [
       'linux',
       'windows',
+    ]
+  },
+  {
+    text: '成长总结',
+    icon: 'pen-to-square',
+    prefix: "/experience/",
+    children: [
+      // { text: '年终总结-2022', link: 'summary-2022' },
     ]
   },
 ]);
