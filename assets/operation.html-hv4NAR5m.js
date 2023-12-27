@@ -1,1 +1,0 @@
-import{_ as t}from"./plugin-vue_export-helper-x3n3nnut.js";import{o,c as a,b as e,d as r}from"./app-S7AmktQN.js";const c={},n=e("h1",{id:"常用操作",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#常用操作","aria-hidden":"true"},"#"),r(" 常用操作")],-1),s=[n];function _(d,i){return o(),a("div",null,s)}const f=t(c,[["render",_],["__file","operation.html.vue"]]);export{f as default};
