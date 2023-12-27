@@ -39,6 +39,13 @@ export default navbar([
       {
         text: '数据资源',
         children: [
+
+        ]
+      },
+      {
+        text: '地理处理',
+        children: [
+          
         ]
       }
     ]
@@ -78,7 +85,7 @@ export default navbar([
     icon: 'pen-to-square',
     prefix: "/experience/",
     children: [
-      // { text: '年终总结-2022', link: 'summary-2022' },
+      { text: '年终总结-2022', link: 'summary-2022' },
     ]
   },
 ]);

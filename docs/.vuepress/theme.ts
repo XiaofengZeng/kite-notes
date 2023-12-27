@@ -75,11 +75,11 @@ export default hopeTheme({
     },
   },
 
-  // encrypt: {
-  //   config: {
-  //     '/demo/encrypt.html': ['1234'],
-  //   },
-  // },
+  encrypt: {
+    config: {
+      '/experience/summary-2022.html': ['527xc!'],
+    },
+  },
 
   // page meta
   // metaLocales: {
